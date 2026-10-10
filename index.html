@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Australian Taxation by Region</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      color: #111;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-top: 0;
+    }
+
+    .chart-box {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Australian Taxation by Region</h1>
+    <p>Discover insights into taxation patterns across Australian communities, by comparing taxpayer numbers,
+    taxable income and demogrpahics of taxpayers.</p>
+  </header>
+
+  <div class="chart-box">
+    <div id="vis1"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis2"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis3"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis4"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis5"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis6"></div>
+  </div>
+
+  <div class="chart-box">
+    <div id="vis7"></div>
+  </div>
+
+  <script>
+    vegaEmbed('#vis1', 'chart1.json');
+    vegaEmbed('#vis2', 'chart2.json');
+    vegaEmbed('#vis3', 'chart3.json');
+    vegaEmbed('#vis4', 'chart4.json');
+    vegaEmbed('#vis5', 'chart5.json');
+    vegaEmbed('#vis6', 'chart6.json');
+    vegaEmbed('#vis7', 'chart7.json');
+  </script>
+
+</body>
+</html>

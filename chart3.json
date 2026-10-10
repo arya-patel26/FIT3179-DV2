@@ -1,0 +1,50 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 450,
+  "title": "Average Tax per Person by Industry",
+  "data": {
+    "url": "chart_data3.csv"
+  },
+  "encoding": {
+    "y": {
+      "field": "industry",
+      "type": "nominal",
+      "title": "Industry",
+      "sort": {"field": "avg_tax_pp", "op": "max", "order": "descending"}
+    },
+    "x": {
+      "field": "avg_tax_pp",
+      "type": "quantitative",
+      "title": "Average Tax Per Person ($)"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "height": 6,
+        "cornerRadiusEnd": 3
+      },
+      "encoding": {
+        "color": {"value": "#cbd5e1"}
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "fill": "#ffffff",
+        "stroke": "#1e3a8a",
+        "strokeWidth": 2,
+        "size": 140
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "industry", "type": "nominal", "title": "Industry"},
+          {"field": "avg_tax_pp", "type": "quantitative", "title": "Avg Tax Per Person", "format": "$,.2f"}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "chart_data4.csv"
+  },
+  "vconcat": [
+    {
+      "width": 700,
+      "height": 350,
+      "title": "Tax Revenue by Entity Type Over Time (Stacked)",
+      "transform": [
+        {"filter": "datum.entity_type != 'Total'"}
+      ],
+      "mark": "area",
+      "encoding": {
+        "x": {
+          "field": "income_year",
+          "type": "nominal",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {"title": "Income Year", "labelAngle": -45}
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative",
+          "title": "Amount ($m)"
+        },
+        "color": {
+          "field": "entity_type",
+          "type": "nominal",
+          "title": "Entity Type",
+          "scale": {"range": ["#dde3ea", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#1c5a99", "#08306b"]}
+        },
+        "tooltip": [
+          {"field": "income_year", "type": "nominal", "title": "Year"},
+          {"field": "entity_type", "type": "nominal", "title": "Entity Type"},
+          {"field": "amount", "type": "quantitative", "title": "Amount", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "width": 700,
+      "height": 80,
+      "mark": "line",
+      "title": "Filter years for the stacked chart above",
+      "transform": [
+        {"filter": "datum.entity_type == 'Total'"}
+      ],
+      "params": [
+        {
+          "name": "brush",
+          "select": {"type": "interval", "encodings": ["x"]}
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "income_year",
+          "type": "nominal",
+          "axis": {"title": "", "labelAngle": -45}
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative",
+          "title": "Total",
+          "axis": {"tickCount": 3, "grid": false}
+        }
+      }
+    }
+  ],
+  "config": {
+    "title": {"font": "sans-serif", "fontSize": 14}
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Average taxable income by postcode, 2023–24",
+  "width": 800,
+  "height": 750,
+  "params": [
+    {
+      "name": "map_view",
+      "value": [134, -27, 1000],
+      "bind": {
+        "input": "select",
+        "options": [
+          [134, -27, 1000],
+          [146.5, -32.8, 3200],
+          [144.8, -36.9, 5000],
+          [145, -20, 2000],
+          [135, -32, 2800],
+          [122, -25.5, 1700],
+          [146.6, -42.1, 9500],
+          [133.4, -19.5, 2600],
+          [149.0, -35.5, 35000]
+        ],
+        "labels": [
+          "Australia",
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "Northern Territory",
+          "ACT"
+        ],
+        "name": "Map Centre: "
+      }
+    },
+    {
+      "name": "zoom_boost",
+      "value": 1,
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 6,
+        "step": 0.1,
+        "name": "Zoom: "
+      }
+    }
+  ],
+  "data": {
+    "url": "POA_2021_AUST_GDA2020.json",
+    "format": {
+      "type": "topojson",
+      "feature": "POA_2021_AUST_GDA2020"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "properties.POA_CODE21",
+      "from": {
+        "data": {
+          "url": "chart_data1.csv",
+          "format": {
+            "type": "csv",
+            "parse": {
+              "postcode": "string",
+              "avg_income": "number",
+              "median_income": "number",
+              "individuals": "number"
+            }
+          }
+        },
+        "key": "postcode",
+        "fields": ["avg_income", "median_income", "individuals"]
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "center": {"expr": "[map_view[0], map_view[1]]"},
+    "scale": {"expr": "map_view[2] * zoom_boost"}
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 0.1
+  },
+  "encoding": {
+    "color": {
+      "field": "avg_income",
+      "type": "quantitative",
+      "title": "Avg taxable income ($)",
+      "scale": {
+        "scheme": "blues",
+        "domain": [40000, 200000]
+      }
+    },
+    "tooltip": [
+      {"field": "properties.POA_CODE21", "title": "Postcode"},
+      {"field": "avg_income", "title": "Average income", "format": "$,.0f"},
+      {"field": "median_income", "title": "Median income", "format": "$,.0f"},
+      {"field": "individuals", "title": "Individuals", "format": ","}
+    ]
+  }
+}

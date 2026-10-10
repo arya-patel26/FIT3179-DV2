@@ -1,0 +1,187 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": "Tax Bracket Distribution: Individuals Share vs Net Tax Contribution",
+  "params": [
+    {
+      "name": "SelectedYear",
+      "value": "2023–24",
+      "bind": {
+        "input": "select",
+        "options": [
+          "2010–11", "2011–12", "2012–13", "2013–14", "2014–15",
+          "2015–16", "2016–17", "2017–18", "2018–19", "2019–20",
+          "2020–21", "2021–22", "2022–23", "2023–24"
+        ],
+        "name": "Select Financial Year: "
+      }
+    }
+  ],
+  "data": {
+    "url": "chart_data7.csv",
+    "format": {"type": "csv", "parse": {"percentage": "number"}}
+  },
+  "transform": [
+    {"filter": "datum.year == SelectedYear"},
+    {
+      "calculate": "toNumber(replace(split(datum.taxable_income, ' ')[0], /[$,]/g, ''))",
+      "as": "bracket_start"
+    },
+    {
+      "window": [{"op": "row_number", "as": "bracket_rank"}],
+      "groupby": ["metric"],
+      "sort": [{"field": "bracket_start", "order": "ascending"}]
+    },
+    {
+      "stack": "percentage",
+      "groupby": ["metric"],
+      "sort": [{"field": "bracket_rank", "order": "ascending"}],
+      "offset": "zero",
+      "as": ["y0", "y1"]
+    },
+    {"calculate": "datum.metric === 'Individuals (%)' ? datum.y0 : 0", "as": "i0_raw"},
+    {"calculate": "datum.metric === 'Individuals (%)' ? datum.y1 : 0", "as": "i1_raw"},
+    {"calculate": "datum.metric === 'Net Tax Contribution (%)' ? datum.y0 : 0", "as": "n0_raw"},
+    {"calculate": "datum.metric === 'Net Tax Contribution (%)' ? datum.y1 : 0", "as": "n1_raw"},
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "i0_raw", "as": "i0"},
+        {"op": "sum", "field": "i1_raw", "as": "i1"},
+        {"op": "sum", "field": "n0_raw", "as": "n0"},
+        {"op": "sum", "field": "n1_raw", "as": "n1"}
+      ],
+      "groupby": ["bracket_rank"]
+    }
+  ],
+  "layer": [
+    {
+      "transform": [
+        {"filter": "datum.metric === 'Individuals (%)'"},
+        {"calculate": "[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]", "as": "t"},
+        {"flatten": ["t"]},
+        {"calculate": "datum.t * datum.t * (3 - 2 * datum.t)", "as": "s"},
+        {"calculate": "1 + datum.t", "as": "bx"},
+        {"calculate": "datum.i0 + datum.s * (datum.n0 - datum.i0)", "as": "ya"},
+        {"calculate": "datum.i1 + datum.s * (datum.n1 - datum.i1)", "as": "yb"}
+      ],
+      "mark": {"type": "area", "opacity": 0.45},
+      "encoding": {
+        "x": {
+          "field": "bx",
+          "type": "quantitative",
+          "scale": {"domain": [0, 3]},
+          "axis": {
+            "values": [0.5, 2.5],
+            "labelExpr": "datum.value == 0.5 ? 'Taxpayer individuals' : 'Net Tax Contribution'",
+            "labelFontSize": 13,
+            "labelAngle": 0,
+            "labelPadding": 8,
+            "domain": false,
+            "ticks": false,
+            "grid": false,
+            "title": null
+          }
+        },
+        "y": {
+          "field": "ya",
+          "type": "quantitative",
+          "scale": {"domain": [0, 100]},
+          "axis": null
+        },
+        "y2": {"field": "yb"},
+        "color": {
+          "field": "bracket_rank",
+          "type": "ordinal",
+          "legend": null,
+          "scale": {"domain": [1, 2, 3, 4, 5], "range": ["#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08306b"]}
+        }
+      }
+    },
+    {
+      "mark": {"type": "rect", "stroke": "white", "strokeWidth": 1},
+      "transform": [
+        {"calculate": "datum.metric === 'Individuals (%)' ? 0 : 2", "as": "bx0"},
+        {"calculate": "datum.bx0 + 1", "as": "bx1"}
+      ],
+      "encoding": {
+        "x": {
+          "field": "bx0",
+          "type": "quantitative",
+          "scale": {"domain": [0, 3]},
+          "axis": {
+            "values": [0.5, 2.5],
+            "labelExpr": "datum.value == 0.5 ? 'Taxpayer individuals' : 'Net Tax Contribution'",
+            "labelFontSize": 13,
+            "labelAngle": 0,
+            "labelPadding": 8,
+            "domain": false,
+            "ticks": false,
+            "grid": false,
+            "title": null
+          }
+        },
+        "x2": {"field": "bx1"},
+        "y": {
+          "field": "y0",
+          "type": "quantitative",
+          "scale": {"domain": [0, 100]},
+          "axis": null
+        },
+        "y2": {"field": "y1"},
+        "color": {
+          "field": "bracket_rank",
+          "type": "ordinal",
+          "legend": null,
+          "scale": {"domain": [1, 2, 3, 4, 5], "range": ["#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08306b"]}
+        },
+        "tooltip": [
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "metric", "type": "nominal", "title": "Metric"},
+          {"field": "taxable_income", "type": "nominal", "title": "Bracket"},
+          {"field": "percentage", "type": "quantitative", "title": "Percentage (%)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.metric === 'Individuals (%)' && (datum.y1 - datum.y0) >= 4"},
+        {"calculate": "(datum.y0 + datum.y1) / 2", "as": "ymid"},
+        {"calculate": "0.5", "as": "tx"}
+      ],
+      "mark": {"type": "text", "fontSize": 11},
+      "encoding": {
+        "x": {
+          "field": "tx",
+          "type": "quantitative",
+          "scale": {"domain": [0, 3]},
+          "axis": {
+            "values": [0.5, 2.5],
+            "labelExpr": "datum.value == 0.5 ? 'Taxpayer individuals' : 'Net Tax Contribution'",
+            "labelFontSize": 13,
+            "labelAngle": 0,
+            "labelPadding": 8,
+            "domain": false,
+            "ticks": false,
+            "grid": false,
+            "title": null
+          }
+        },
+        "y": {
+          "field": "ymid",
+          "type": "quantitative",
+          "scale": {"domain": [0, 100]},
+          "axis": null
+        },
+        "text": {"field": "taxable_income", "type": "nominal"},
+        "color": {
+          "condition": {"test": "datum.bracket_rank >= 4", "value": "white"},
+          "value": "#1f2937"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
+}

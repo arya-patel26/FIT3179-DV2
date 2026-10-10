@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 450,
+  "title": "Ranking of Excise Tax Contributors Over Time (Bump Chart)",
+  "data": {
+    "url": "chart_data5.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "financial_year",
+          "type": "nominal",
+          "axis": {"title": "Financial Year", "labelAngle": -45}
+        },
+        "y": {
+          "field": "rank",
+          "type": "quantitative",
+          "scale": {"domain": [10, 1]},
+          "axis": {"title": "Rank (1 = Highest Contributor)", "tickCount": 10}
+        },
+        "color": {
+          "field": "source",
+          "type": "nominal",
+          "title": "Excise Source",
+          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
+          "legend": {"title": "Excise Source"}
+        },
+        "tooltip": [
+          {"field": "financial_year", "type": "nominal", "title": "Year"},
+          {"field": "source", "type": "nominal", "title": "Source"},
+          {"field": "rank", "type": "quantitative", "title": "Rank"},
+          {"field": "amount", "type": "quantitative", "title": "Amount ($m)", "format": ",.2f"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 100
+      },
+      "encoding": {
+        "x": {
+          "field": "financial_year",
+          "type": "nominal"
+        },
+        "y": {
+          "field": "rank",
+          "type": "quantitative",
+          "scale": {"domain": [10, 1]}
+        },
+        "color": {
+          "field": "source",
+          "type": "nominal",
+          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "financial_year", "type": "nominal", "title": "Year"},
+          {"field": "source", "type": "nominal", "title": "Source"},
+          {"field": "rank", "type": "quantitative", "title": "Rank"},
+          {"field": "amount", "type": "quantitative", "title": "Amount ($m)", "format": ",.2f"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
+}

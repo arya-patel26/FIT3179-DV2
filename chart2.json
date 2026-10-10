@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 450,
+  "title": "State and Territory Tax Collection: 2015-16 vs 2024-25",
+  "data": {
+    "url": "chart_data2.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "color": "#cbd5e1", "strokeWidth": 3},
+      "encoding": {
+        "y": {
+          "field": "government",
+          "type": "nominal",
+          "title": "Jurisdiction",
+          "sort": {"field": "tax", "op": "max", "order": "descending"}
+        },
+        "x": {
+          "field": "tax",
+          "type": "quantitative",
+          "title": "Tax Collection ($m)"
+        },
+        "detail": {"field": "government"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 140},
+      "encoding": {
+        "y": {
+          "field": "government",
+          "type": "nominal",
+          "sort": {"field": "tax", "op": "max", "order": "descending"}
+        },
+        "x": {
+          "field": "tax",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "year",
+          "type": "nominal",
+          "title": "Financial Year",
+          "scale": {
+            "domain": ["2015-16", "2024-25"],
+            "range": ["#94a3b8", "#1e3a8a"]
+          }
+        },
+        "tooltip": [
+          {"field": "government", "type": "nominal", "title": "Jurisdiction"},
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "tax", "type": "quantitative", "title": "Tax Collection ($m)", "format": ","}
+        ]
+      }
+    }
+  ]
+}
