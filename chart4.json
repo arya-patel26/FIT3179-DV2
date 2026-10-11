@@ -7,7 +7,7 @@
     {
       "width": 700,
       "height": 350,
-      "title": "Tax Revenue by Entity Type Over Time (Stacked)",
+      "title": "Tax Revenue Composition by Revenue Stream",
       "transform": [
         {"filter": "datum.entity_type != 'Total'"}
       ],
@@ -17,23 +17,23 @@
           "field": "income_year",
           "type": "nominal",
           "scale": {"domain": {"param": "brush"}},
-          "axis": {"title": "Income Year", "labelAngle": -45}
+          "axis": {"title": "Financial Year", "labelAngle": -45}
         },
         "y": {
           "field": "amount",
           "type": "quantitative",
-          "title": "Amount ($m)"
+          "title": "Tax Revenue ($m)"
         },
         "color": {
           "field": "entity_type",
           "type": "nominal",
-          "title": "Entity Type",
+          "title": "Revenue Stream",
           "scale": {"range": ["#dde3ea", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#1c5a99", "#08306b"]}
         },
         "tooltip": [
           {"field": "income_year", "type": "nominal", "title": "Year"},
-          {"field": "entity_type", "type": "nominal", "title": "Entity Type"},
-          {"field": "amount", "type": "quantitative", "title": "Amount", "format": ",.0f"}
+          {"field": "entity_type", "type": "nominal", "title": "Stream"},
+          {"field": "amount", "type": "quantitative", "title": "Revenue ($m)", "format": ","}
         ]
       }
     },
@@ -41,7 +41,7 @@
       "width": 700,
       "height": 80,
       "mark": "line",
-      "title": "Filter years for the stacked chart above",
+      "title": "Filter Years for the Chart Above",
       "transform": [
         {"filter": "datum.entity_type == 'Total'"}
       ],
@@ -60,7 +60,7 @@
         "y": {
           "field": "amount",
           "type": "quantitative",
-          "title": "Total",
+          "title": "Total Revenue",
           "axis": {"tickCount": 3, "grid": false}
         }
       }

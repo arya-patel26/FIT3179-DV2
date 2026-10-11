@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 750,
   "height": 450,
-  "title": "Ranking of Excise Tax Contributors Over Time (Bump Chart)",
+  "title": "Top Excise Tax Contributors",
   "data": {
     "url": "chart_data5.csv"
   },
@@ -23,20 +23,20 @@
           "field": "rank",
           "type": "quantitative",
           "scale": {"domain": [10, 1]},
-          "axis": {"title": "Rank (1 = Highest Contributor)", "tickCount": 10}
+          "axis": {"title": "Rank", "tickCount": 10}
         },
         "color": {
           "field": "source",
           "type": "nominal",
-          "title": "Excise Source",
+          "title": "Contributors",
           "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
-          "legend": {"title": "Excise Source"}
+          "legend": {"title": "Contributors"}
         },
         "tooltip": [
           {"field": "financial_year", "type": "nominal", "title": "Year"},
           {"field": "source", "type": "nominal", "title": "Source"},
           {"field": "rank", "type": "quantitative", "title": "Rank"},
-          {"field": "amount", "type": "quantitative", "title": "Amount ($m)", "format": ",.2f"}
+          {"field": "amount", "type": "quantitative", "title": "Contribution ($m)", "format": ","}
         ]
       }
     },
@@ -66,7 +66,7 @@
           {"field": "financial_year", "type": "nominal", "title": "Year"},
           {"field": "source", "type": "nominal", "title": "Source"},
           {"field": "rank", "type": "quantitative", "title": "Rank"},
-          {"field": "amount", "type": "quantitative", "title": "Amount ($m)", "format": ",.2f"}
+          {"field": "amount", "type": "quantitative", "title": "Contribution ($m)", "format": ","}
         ]
       }
     }

@@ -86,17 +86,17 @@
   },
   "encoding": {
     "color": {
-      "field": "avg_income",
+      "field": "median_income",
       "type": "quantitative",
       "title": "Average taxable income ($)",
       "scale": {
         "scheme": "blues",
-        "domain": [40000, 200000]
+        "domain": [40000, 150000]
       }
     },
     "tooltip": [
       {"field": "properties.POA_CODE21", "title": "Postcode"},
-      {"field": "avg_income", "title": "Average income", "format": "$,.0f"},
+      {"field": "median_income", "title": "Median Income", "format": "$,.0f"},
       {"field": "individuals", "title": "Individuals", "format": ","}
     ]
   }

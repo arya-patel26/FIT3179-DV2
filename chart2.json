@@ -13,7 +13,7 @@
         "y": {
           "field": "government",
           "type": "nominal",
-          "title": "Jurisdiction",
+          "title": "State/Territory",
           "sort": {"field": "tax", "op": "max", "order": "descending"}
         },
         "x": {

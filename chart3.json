@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 750,
   "height": 450,
-  "title": "Average Tax per Person by Industry",
+  "title": "Average Individual Tax Contribution by Industry",
   "data": {
     "url": "chart_data3.csv"
   },
@@ -16,7 +16,7 @@
     "x": {
       "field": "avg_tax_pp",
       "type": "quantitative",
-      "title": "Average Tax Per Person ($)"
+      "title": "Average Tax Contribution Per Person ($)"
     }
   },
   "layer": [
