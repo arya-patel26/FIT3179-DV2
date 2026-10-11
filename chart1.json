@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Median Taxable Income by Postcode, 2023–24",
+  "title": "Median Taxable Income by Postcode (2023–24)",
   "width": 800,
   "height": 750,
   "params": [
@@ -88,10 +88,10 @@
     "color": {
       "field": "median_income",
       "type": "quantitative",
-      "title": "Median taxable income ($)",
+      "title": "Median Taxable Income ($)",
       "scale": {
         "scheme": "blues",
-        "domain": [40000, 150000]
+        "domain": [30000, 145000]
       }
     },
     "tooltip": [
