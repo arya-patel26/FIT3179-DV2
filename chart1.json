@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Average taxable income by postcode, 2023–24",
+  "title": "Average Taxable Income by Postcode, 2023–24",
   "width": 800,
   "height": 750,
   "params": [
@@ -88,7 +88,7 @@
     "color": {
       "field": "avg_income",
       "type": "quantitative",
-      "title": "Avg taxable income ($)",
+      "title": "Average taxable income ($)",
       "scale": {
         "scheme": "blues",
         "domain": [40000, 200000]
@@ -97,7 +97,6 @@
     "tooltip": [
       {"field": "properties.POA_CODE21", "title": "Postcode"},
       {"field": "avg_income", "title": "Average income", "format": "$,.0f"},
-      {"field": "median_income", "title": "Median income", "format": "$,.0f"},
       {"field": "individuals", "title": "Individuals", "format": ","}
     ]
   }
