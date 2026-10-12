@@ -1,103 +1,394 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Australian Taxation by Region</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive analysis of taxation, income distributions, and revenue streams across Australia.">
+  <title>Australian Taxation & Income — Data Visualisation Dashboard</title>
   
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 20px;
+    :root {
+      --bg-main: #fcfcfd;
+      --bg-tinted: #f3f4f6;
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-light: #6b7280;
+      --border-color: #e5e7eb;
+      --border-dark: #d1d5db;
+      --accent-color: #2563eb;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --max-width: 1140px;
     }
 
-    header {
-      text-align: center;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-color); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand { font-weight: 700; color: var(--text-main); font-size: 1.05rem; }
+    .masthead nav { display: flex; gap: 20px; }
+    .masthead nav a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+    .masthead nav a:hover { color: var(--text-main); }
+
+    .draft-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 24px 48px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      align-items: flex-end;
       margin-bottom: 40px;
     }
 
-    header h1 {
-      font-size: 2.2rem;
-      margin-bottom: 5px;
-      color: #111;
+    .intro {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
-    header p {
-      font-size: 1.1rem;
-      color: #666;
-      margin-top: 0;
+    .jump { font-weight: 600; font-size: 0.95rem; }
+
+    /* Chapters */
+    .chapter {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-color);
     }
 
-    .chart-box {
-      background: #ffffff;
-      border: 1px solid #ddd;
+    .chapter.tinted { background-color: var(--bg-tinted); }
+
+    .chapter-heading {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 32px;
+    }
+
+    .chapter-no {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--border-dark);
+    }
+
+    .chapter-heading h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Panels & Charts - Stacked Full Width Layout */
+    .chart-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      width: 100%;
+    }
+
+    .figure-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .chart-kicker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+    }
+
+    .figure-heading h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .chart {
+      width: 100%;
+      min-height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    figcaption {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+
+    /* Sources Placeholder */
+    .sources {
+      padding: 64px 24px;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 24px;
+      min-height: 120px;
+    }
+
+    footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+      .hero-bottom, .source-grid { grid-template-columns: 1fr; }
+      .masthead nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Australian Taxation by Region</h1>
-    <p>Discover insights into taxation patterns across Australian communities, by comparing taxpayer numbers,
-    taxable income and demogrpahics of taxpayers.</p>
-  </header>
+<header class="masthead">
+  <a class="brand" href="#">Taxation & Income Dashboard</a>
+  <nav aria-label="Chapters">
+    <a href="#block-1">01 / Regional & State Trends</a>
+    <a href="#block-2">02 / Sector & Revenue Growth</a>
+    <a href="#block-3">03 / Excise & Postcode Focus</a>
+    <a href="#block-4">04 / Tax Bracket Shares</a>
+  </nav>
+  <span class="draft-label">DRAFT V2</span>
+</header>
 
-  <div class="chart-box">
-    <div id="vis1"></div>
-    <p>While the majority of Australian regions maintain median incomes within a consistent baseline range, high-earning population pockets emerge in regional Western Australia and Queensland. This geographical concentration highlights the significant impact of high-paying roles within the mining and resources sectors on regional average earnings.</p>
-  </div>
+<main id="main">
 
-  <div class="chart-box">
-    <div id="vis2"></div>
-    <p>All Australian states experienced robust growth in tax revenue over time, with New South Wales, Victoria, and Queensland leading total contributions. Notably, Victoria and Queensland recorded the highest rate of tax revenue growth, whereas the Northern Territory recorded the slowest expansion.</p>
-  </div>
+  <!-- Hero Section -->
+  <section class="hero wrap">
+    <p class="eyebrow">DATA VISUALISATION 2 · DASHBOARD</p>
+    <h1>Australian Taxation & Income Trends</h1>
+    <div class="hero-bottom">
+      <p class="intro">An interactive analysis comparing income distributions, state tax revenues, sector contributions, and tax brackets across Australia.</p>
+      <a class="jump" href="#block-1">Explore the charts <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
 
-  <div class="chart-box">
-    <div id="vis3"></div>
-    <p>Healthcare and finance generated the highest average individual tax contributions across all industry sectors. Mining and resources also ranked among the top five, underscoring the strength of Australia’s primary industry, while logistics and hospitality recorded the lowest average contributions.</p>
-  </div>
+  <!-- BLOCK 1 -->
+  <section id="block-1" class="chapter wrap">
+    <div class="chapter-heading">
+      <span class="chapter-no">01</span>
+      <div>
+        <p class="eyebrow">REGIONAL DISTRIBUTION</p>
+        <h2>Block 1</h2>
+      </div>
+    </div>
+    
+    <div class="chart-stack">
+      <figure class="panel">
+        <div class="figure-heading">
+          <div><span class="chart-kicker">01 / MAP</span><h3>Median Income by Region</h3></div>
+        </div>
+        <div class="chart" id="chart1"></div>
+        <figcaption>While the majority of Australian regions maintain median incomes within a consistent baseline range, high-earning population pockets emerge in regional Western Australia and Queensland. This geographical concentration highlights the significant impact of high-paying roles within the mining and resources sectors on regional average earnings.</figcaption>
+      </figure>
 
-  <div class="chart-box">
-    <div id="vis4"></div>
-    <p>Most tax streams maintained steady annual growth, though overall tax revenue experienced a sharp peak following the 2019–2020 financial year. This spike reflects post-pandemic fiscal adjustments, shifts in tax policies, and the rollout of government stimulus and emergency aid programs.</p>
-  </div>
+      <figure class="panel">
+        <div class="figure-heading">
+          <div><span class="chart-kicker">02 / GROWTH</span><h3>Tax Revenue Growth by State</h3></div>
+        </div>
+        <div class="chart" id="chart2"></div>
+        <figcaption>All Australian states experienced robust growth in tax revenue over time, with New South Wales, Victoria, and Queensland leading total contributions. Notably, Victoria and Queensland recorded the highest rate of tax revenue growth, whereas the Northern Territory recorded the slowest expansion.</figcaption>
+      </figure>
+    </div>
+  </section>
 
-  <div class="chart-box">
-    <div id="vis5"></div>
-    <p>Diesel and petrol consistently held the top spots as major sources of excise tax revenue, whereas cigarettes saw a dramatic fall in ranking before disappearing, alongside tobacco which only featured in the initial dataset. Conversely, spirits demonstrated a notable upward trajectory, significantly increasing their proportional revenue contribution over time.</p>
-  </div>
+  <!-- BLOCK 2 -->
+  <section id="block-2" class="chapter tinted">
+    <div class="wrap">
+      <div class="chapter-heading">
+        <span class="chapter-no">02</span>
+        <div>
+          <p class="eyebrow">INDUSTRY & STIMULUS</p>
+          <h2>Block 2</h2>
+        </div>
+      </div>
 
-  <div class="chart-box">
-    <div id="vis6"></div>
-    <p>The top-ranking high-income postcodes are heavily concentrated in major metropolitan hubs, with seven located in New South Wales, two in Victoria, and one in Western Australia. A notable exception is postcode 3944 (Portsea), which recently surged to the top rank due to a small, high-net-worth resident population distorting the average earnings.</p>
-  </div>
+      <div class="chart-stack">
+        <figure class="panel">
+          <div class="figure-heading">
+            <div><span class="chart-kicker">03 / SECTORS</span><h3>Average Tax by Sector</h3></div>
+          </div>
+          <div class="chart" id="chart3"></div>
+          <figcaption>Healthcare and finance generated the highest average individual tax contributions across all industry sectors. Mining and resources also ranked among the top five, underscoring the strength of Australia’s primary industry, while logistics and hospitality recorded the lowest average contributions.</figcaption>
+        </figure>
 
-  <div class="chart-box">
-    <div id="vis7"></div>
-    <p>Comparing taxpayer counts to net tax contributions reveals a growing revenue concentration, with the $180,000+ tax bracket expanding its share of net tax from 26% to 39%. The $45,000–$120,000 bracket represents the second-largest contribution at 37%, illustrating how inflation, bracket creep, and shifting income distributions have reshaped tax shares over time.</p>
-  </div>
+        <figure class="panel">
+          <div class="figure-heading">
+            <div><span class="chart-kicker">04 / TIMELINE</span><h3>Annual Tax Revenue Trends</h3></div>
+          </div>
+          <div class="chart" id="chart4"></div>
+          <figcaption>Most tax streams maintained steady annual growth, though overall tax revenue experienced a sharp peak following the 2019–2020 financial year. This spike reflects post-pandemic fiscal adjustments, shifts in tax policies, and the rollout of government stimulus and emergency aid programs.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    vegaEmbed('#vis1', 'chart1.json');
-    vegaEmbed('#vis2', 'chart2.json');
-    vegaEmbed('#vis3', 'chart3.json');
-    vegaEmbed('#vis4', 'chart4.json');
-    vegaEmbed('#vis5', 'chart5.json');
-    vegaEmbed('#vis6', 'chart6.json');
-    vegaEmbed('#vis7', 'chart7.json');
-  </script>
+  <!-- BLOCK 3 -->
+  <section id="block-3" class="chapter wrap">
+    <div class="chapter-heading">
+      <span class="chapter-no">03</span>
+      <div>
+        <p class="eyebrow">EXCISE & POSTCODES</p>
+        <h2>Block 3</h2>
+      </div>
+    </div>
+
+    <div class="chart-stack">
+      <figure class="panel">
+        <div class="figure-heading">
+          <div><span class="chart-kicker">05 / EXCISE</span><h3>Excise Revenue Shifts</h3></div>
+        </div>
+        <div class="chart" id="chart5"></div>
+        <figcaption>Diesel and petrol consistently held the top spots as major sources of excise tax revenue, whereas cigarettes saw a dramatic fall in ranking before disappearing, alongside tobacco which only featured in the initial dataset. Conversely, spirits demonstrated a notable upward trajectory, significantly increasing their proportional revenue contribution over time.</figcaption>
+      </figure>
+
+      <figure class="panel">
+        <div class="figure-heading">
+          <div><span class="chart-kicker">06 / POSTCODES</span><h3>Top High-Income Postcodes</h3></div>
+        </div>
+        <div class="chart" id="chart6"></div>
+        <figcaption>The top-ranking high-income postcodes are heavily concentrated in major metropolitan hubs, with seven located in New South Wales, two in Victoria, and one in Western Australia. A notable exception is postcode 3944 (Portsea), which recently surged to the top rank due to a small, high-net-worth resident population distorting the average earnings.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- BLOCK 4 -->
+  <section id="block-4" class="chapter tinted">
+    <div class="wrap">
+      <div class="chapter-heading">
+        <span class="chapter-no">04</span>
+        <div>
+          <p class="eyebrow">CONTRIBUTIONS & BRACKETS</p>
+          <h2>Block 4</h2>
+        </div>
+      </div>
+
+      <div class="chart-stack">
+        <figure class="panel">
+          <div class="figure-heading">
+            <div><span class="chart-kicker">07 / BRACKETS</span><h3>Share of Taxpayers vs Tax Paid</h3></div>
+          </div>
+          <div class="chart" id="chart7"></div>
+          <figcaption>Comparing taxpayer counts to net tax contributions reveals a growing revenue concentration, with the $180,000+ tax bracket expanding its share of net tax from 26% to 39%. The $45,000–$120,000 bracket represents the second-largest contribution at 37%, illustrating how inflation, bracket creep, and shifting income distributions have reshaped tax shares over time.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT & SOURCES (PLACEHOLDERS) -->
+  <section class="wrap sources" id="sources">
+    <p class="eyebrow">ABOUT THE DATA</p>
+    <h2>Data Sources & Limitations</h2>
+    <div class="source-grid">
+      <div>
+        <h3>Official Resources</h3>
+      </div>
+      <div>
+        <h3>Methodology</h3>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p><strong>Arya Patel</strong> · Data Visualisation 2</p>
+  <p>Created with Vega &amp; Vega-Lite.</p>
+</footer>
+
+<!-- Vega & Vega-Lite Libraries loaded synchronously at bottom for reliable embedding -->
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+<script>
+  vegaEmbed('#chart1', 'chart1.json');
+  vegaEmbed('#chart2', 'chart2.json');
+  vegaEmbed('#chart3', 'chart3.json');
+  vegaEmbed('#chart4', 'chart4.json');
+  vegaEmbed('#chart5', 'chart5.json');
+  vegaEmbed('#chart6', 'chart6.json');
+  vegaEmbed('#chart7', 'chart7.json');
+</script>
 
 </body>
 </html>

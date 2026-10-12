@@ -1,24 +1,48 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Median Taxable Income by Postcode (2023–24)",
+  "title": {
+    "text": "Median Taxable Income by Postcode (2023–24)",
+    "anchor": "start",
+    "color": "#111827",
+    "fontSize": 15,
+    "fontWeight": 600,
+    "dy": -10
+  },
   "width": 800,
-  "height": 750,
+  "height": 650,
+  "config": {
+    "background": "transparent",
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "titleColor": "#374151",
+      "titleFontSize": 11,
+      "titleFontWeight": 600,
+      "labelColor": "#4b5563",
+      "labelFontSize": 10,
+      "padding": 8,
+      "orient": "bottom",
+      "direction": "horizontal"
+    }
+  },
   "params": [
     {
       "name": "map_view",
-      "value": [134, -27, 1000],
+      "value": [134, -27, 850],
       "bind": {
         "input": "select",
         "options": [
-          [134, -27, 1000],
-          [146.5, -32.8, 3200],
-          [144.8, -36.9, 5000],
-          [145, -20, 2000],
-          [135, -32, 2800],
-          [122, -25.5, 1700],
-          [146.6, -42.1, 9500],
-          [133.4, -19.5, 2600],
-          [149.0, -35.5, 35000]
+          [134, -27, 850],
+          [146.5, -32.8, 2800],
+          [144.8, -36.9, 4200],
+          [145, -20, 1800],
+          [135, -32, 2400],
+          [122, -25.5, 1500],
+          [146.6, -42.1, 8000],
+          [133.4, -19.5, 2200],
+          [149.0, -35.5, 30000]
         ],
         "labels": [
           "Australia",
@@ -40,9 +64,9 @@
       "bind": {
         "input": "range",
         "min": 1,
-        "max": 6,
+        "max": 5,
         "step": 0.1,
-        "name": "Zoom: "
+        "name": "Zoom Level: "
       }
     }
   ],
@@ -81,7 +105,7 @@
   },
   "mark": {
     "type": "geoshape",
-    "stroke": "white",
+    "stroke": "#ffffff",
     "strokeWidth": 0.1
   },
   "encoding": {
@@ -91,7 +115,8 @@
       "title": "Median Taxable Income ($)",
       "scale": {
         "scheme": "blues",
-        "domain": [30000, 145000]
+        "domain": [30000, 145000],
+        "naColor": "#e5e7eb"
       }
     },
     "tooltip": [
