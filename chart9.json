@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 800,
+  "height": 480,
+  "data": [
+    {
+      "name": "rows",
+      "url": "chart_data9.csv",
+      "format": {"type": "csv", "parse": {"individuals": "number"}},
+      "transform": [
+        {"type": "formula", "as": "id", "expr": "datum.taxable_status + '|' + datum.residency_status + '|' + datum.tax_brackets"},
+        {"type": "formula", "as": "parent", "expr": "datum.taxable_status"},
+        {"type": "formula", "as": "name", "expr": "[datum.taxable_status + ' ' + datum.residency_status, ' ' + datum.tax_brackets]"}
+      ]
+    },
+    {
+      "name": "groups",
+      "values": [
+        {"id": "root", "parent": null},
+        {"id": "Taxable", "parent": "root"},
+        {"id": "Non Taxable", "parent": "root"}
+      ]
+    },
+    {
+      "name": "tree",
+      "source": ["groups", "rows"],
+      "transform": [
+        {"type": "stratify", "key": "id", "parentKey": "parent"},
+        {
+          "type": "treemap",
+          "field": "individuals",
+          "method": "squarify",
+          "size": [{"signal": "width"}, {"signal": "height"}]
+        }
+      ]
+    },
+    {"name": "leaves", "source": "tree", "transform": [{"type": "filter", "expr": "datum.depth === 2"}]}
+  ],
+  "scales": [
+    {"name": "color", "type": "ordinal", "domain": ["Taxable", "Non Taxable"], "range": {"scheme": "category10"}}
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "leaves"},
+      "encode": {
+        "update": {
+          "x": {"field": "x0"}, "y": {"field": "y0"},
+          "x2": {"field": "x1"}, "y2": {"field": "y1"},
+          "fill": {"scale": "color", "field": "taxable_status"},
+          "stroke": {"value": "white"},
+          "tooltip": {"signal": "{'Tax Bracket': datum.tax_brackets, 'Status': datum.taxable_status + ' ' + datum.residency_status, 'Individuals': format(datum.individuals, ',')}"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "leaves"},
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.x0 + 4"},
+          "y": {"signal": "datum.y0 + 4"},
+          "text": {"field": "name"},
+          "lineHeight": {"value": 14},
+          "baseline": {"value": "top"},
+          "fill": {"value": "white"},
+          "limit": {"signal": "datum.x1 - datum.x0 - 8"},
+          "opacity": {"signal": "(datum.x1 - datum.x0) > 90 && (datum.y1 - datum.y0) > 36 ? 1 : 0"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+id,sex,location,generation,lodgement,occupation,tax_outcome
+1,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+2,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+3,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+4,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+5,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+6,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+7,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+8,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+9,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+10,Male,NSW,Baby Boomers,MyTax,Blue collar,Balanced
+11,Male,NSW,Baby Boomers,MyTax,Blue collar,Owed tax
+12,Male,NSW,Baby Boomers,MyTax,Blue collar,Owed tax
+13,Male,NSW,Baby Boomers,MyTax,Blue collar,Owed tax
+14,Male,NSW,Baby Boomers,MyTax,Blue collar,Owed tax
+15,Male,NSW,Gen X,MyTax,Blue collar,Owed tax
+16,Male,NSW,Gen X,MyTax,Blue collar,Owed tax
+17,Male,NSW,Gen X,MyTax,Blue collar,Owed tax
+18,Male,NSW,Gen X,MyTax,Blue collar,Owed tax
+19,Male,NSW,Gen X,MyTax,Blue collar,Owed tax
+20,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+21,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+22,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+23,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+24,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+25,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+26,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+27,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+28,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+29,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+30,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+31,Male,NSW,Gen X,MyTax,Service sector,Owed tax
+32,Male,VIC,Gen X,MyTax,Service sector,Owed tax
+33,Male,VIC,Gen X,MyTax,Service sector,Owed tax
+34,Male,VIC,Gen X,Tax Agent,Service sector,Refund
+35,Male,VIC,Gen X,Tax Agent,Service sector,Refund
+36,Male,VIC,Gen X,Tax Agent,Service sector,Refund
+37,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+38,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+39,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+40,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+41,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+42,Male,VIC,Gen X,Tax Agent,Unknown,Refund
+43,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+44,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+45,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+46,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+47,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+48,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+49,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+50,Male,VIC,Gen Y,Tax Agent,Unknown,Refund
+51,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+52,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+53,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+54,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+55,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+56,Female,VIC,Gen Y,Tax Agent,Unknown,Refund
+57,Female,VIC,Gen Y,Tax Agent,White collar,Refund
+58,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+59,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+60,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+61,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+62,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+63,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+64,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+65,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+66,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+67,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+68,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+69,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+70,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+71,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+72,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+73,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+74,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+75,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+76,Female,QLD,Gen Y,Tax Agent,White collar,Refund
+77,Female,QLD,Gen Z,Tax Agent,White collar,Refund
+78,Female,WA,Gen Z,Tax Agent,White collar,Refund
+79,Female,WA,Gen Z,Tax Agent,White collar,Refund
+80,Female,WA,Gen Z,Tax Agent,White collar,Refund
+81,Female,WA,Gen Z,Tax Agent,White collar,Refund
+82,Female,WA,Gen Z,Tax Agent,White collar,Refund
+83,Female,WA,Gen Z,Tax Agent,White collar,Refund
+84,Female,WA,Gen Z,Tax Agent,White collar,Refund
+85,Female,WA,Gen Z,Tax Agent,White collar,Refund
+86,Female,WA,Gen Z,Tax Agent,White collar,Refund
+87,Female,WA,Gen Z,Tax Agent,White collar,Refund
+88,Female,WA,Gen Z,Tax Agent,White collar,Refund
+89,Female,SA,Gen Z,Tax Agent,White collar,Refund
+90,Female,SA,Gen Z,Tax Agent,White collar,Refund
+91,Female,SA,Gen Z,Tax Agent,White collar,Refund
+92,Female,SA,Gen Z,Tax Agent,White collar,Refund
+93,Female,SA,Gen Z,Tax Agent,White collar,Refund
+94,Female,SA,Gen Z,Tax Agent,White collar,Refund
+95,Female,SA,Gen Z,Tax Agent,White collar,Refund
+96,Female,TAS,Gen Z,Tax Agent,White collar,Refund
+97,Female,TAS,Gen Z,Tax Agent,White collar,Refund
+98,Female,ACT,Silent Gen,Tax Agent,White collar,Refund
+99,Female,NT,Silent Gen,Tax Agent,White collar,Refund
+100,Female,Overseas,Silent Gen,Tax Agent,White collar,Refund

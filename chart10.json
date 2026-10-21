@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Anatomy of 100 Australian Taxpayers (2022–23)",
+    "anchor": "start",
+    "color": "#111827",
+    "fontSize": 15,
+    "fontWeight": 600,
+    "dy": -10
+  },
+  "width": 450,
+  "height": 450,
+  "config": {
+    "background": "transparent",
+    "font": "Arial",
+    "view": {"stroke": null},
+    "legend": {
+      "titleColor": "#374151",
+      "titleFontSize": 11,
+      "titleFontWeight": 600,
+      "labelColor": "#4b5563",
+      "labelFontSize": 10,
+      "padding": 8,
+      "orient": "right",
+      "direction": "vertical"
+    }
+  },
+  "params": [
+    {
+      "name": "selected_attr",
+      "value": "sex",
+      "bind": {
+        "input": "select",
+        "options": ["sex", "location", "generation", "lodgement", "occupation", "tax_outcome"],
+        "labels": [
+          "Sex",
+          "Where they lived",
+          "Generation",
+          "How they lodged",
+          "Occupation",
+          "Tax Outcome"
+        ],
+        "name": "Select Attribute: "
+      }
+    }
+  ],
+  "data": {
+    "url": "chart_data10.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "calculate": "(datum.id - 1) % 10",
+      "as": "col"
+    },
+    {
+      "calculate": "floor((datum.id - 1) / 10)",
+      "as": "row"
+    },
+    {
+      "calculate": "selected_attr == 'sex' ? datum.sex : selected_attr == 'location' ? datum.location : selected_attr == 'generation' ? datum.generation : selected_attr == 'lodgement' ? datum.lodgement : selected_attr == 'occupation' ? datum.occupation : datum.tax_outcome",
+      "as": "active_category"
+    }
+  ],
+  "mark": {
+    "type": "square",
+    "size": 600,
+    "stroke": "#ffffff",
+    "strokeWidth": 2,
+    "cursor": "pointer"
+  },
+  "encoding": {
+    "x": {
+      "field": "col",
+      "type": "ordinal",
+      "axis": null
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "axis": null,
+      "sort": "descending"
+    },
+    "color": {
+      "field": "active_category",
+      "type": "nominal",
+      "title": "Category",
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  }
+}

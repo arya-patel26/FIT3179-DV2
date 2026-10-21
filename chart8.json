@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Average Charitable Donation by State (2023–24)",
+    "subtitle": "Icon size is proportional to the average donation",
+    "anchor": "start",
+    "color": "#111827",
+    "fontSize": 15,
+    "fontWeight": 600,
+    "subtitleColor": "#6b7280",
+    "subtitleFontSize": 11,
+    "dy": -10
+  },
+  "width": 800,
+  "height": 650,
+  "config": {
+    "background": "transparent",
+    "font": "Arial",
+    "view": {"stroke": null}
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [134, -27],
+    "scale": 900
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "STE_2026_AUST_GDA2020.json",
+        "format": {"type": "topojson", "feature": "STE_2026_AUST_GDA2020"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f3f4f6",
+        "stroke": "#d1d5db",
+        "strokeWidth": 0.8
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "WA", "lat": -25.0, "lon": 122.0},
+          {"state": "NSW", "lat": -31.8, "lon": 147.0},
+          {"state": "VIC", "lat": -36.6, "lon": 144.9},
+          {"state": "ACT", "lat": -35.4, "lon": 149.1},
+          {"state": "QLD", "lat": -22.5, "lon": 143.0},
+          {"state": "SA", "lat": -30.0, "lon": 135.0},
+          {"state": "TAS", "lat": -42.0, "lon": 146.5},
+          {"state": "NT", "lat": -20.0, "lon": 133.0}
+        ]
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "chart_data8.csv",
+              "format": {
+                "type": "csv",
+                "parse": {
+                  "state": "string",
+                  "individuals": "number",
+                  "average_donation": "number"
+                }
+              }
+            },
+            "key": "state",
+            "fields": ["individuals", "average_donation"]
+          }
+        }
+      ],
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "point",
+            "shape": "M-0.9,-0.3 H-0.1 V0 H-0.9 Z M0.1,-0.3 H0.9 V0 H0.1 Z M-0.8,0.1 H-0.1 V0.95 H-0.8 Z M0.1,0.1 H0.8 V0.95 H0.1 Z M-0.05,-0.4 C-0.1,-0.95 -0.85,-0.95 -0.6,-0.55 C-0.5,-0.4 -0.3,-0.4 -0.05,-0.4 Z M0.05,-0.4 C0.1,-0.95 0.85,-0.95 0.6,-0.55 C0.5,-0.4 0.3,-0.4 0.05,-0.4 Z",
+            "filled": true,
+            "opacity": 0.9,
+            "stroke": "#ffffff",
+            "strokeWidth": 0.5,
+            "cursor": "pointer",
+            "color": "#166534"
+          },
+          "encoding": {
+            "size": {
+              "field": "average_donation",
+              "type": "quantitative",
+              "scale": {"range": [250, 1200], "domain": [600, 1700]},
+              "legend": null
+            },
+            "tooltip": [
+              {"field": "state", "title": "State / Territory"},
+              {"field": "average_donation", "title": "Average Donation", "format": "$,.0f"},
+              {"field": "individuals", "title": "Contributing Taxpayers", "format": ","}
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "dy": 26,
+            "fontSize": 10,
+            "fontWeight": 600,
+            "color": "#374151"
+          },
+          "encoding": {
+            "text": {"field": "average_donation", "type": "quantitative", "format": "$,.0f"}
+          }
+        }
+      ]
+    }
+  ]
+}

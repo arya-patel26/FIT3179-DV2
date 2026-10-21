@@ -41,7 +41,7 @@
       "width": 700,
       "height": 80,
       "mark": "line",
-      "title": "Filter Years for the Chart Above",
+      "title": "Total Tax Revenue",
       "transform": [
         {"filter": "datum.entity_type == 'Total'"}
       ],
@@ -60,7 +60,7 @@
         "y": {
           "field": "amount",
           "type": "quantitative",
-          "title": "Total Revenue",
+          "title": "Tax Revenue ($m)",
           "axis": {"tickCount": 3, "grid": false}
         }
       }

@@ -1,0 +1,21 @@
+taxable_status,residency_status,tax_brackets,individuals,taxable_income
+Non Taxable,Non-resident,$18200 or less,108980,-338982543
+Non Taxable,Non-resident,$18201 to $45000,2128,46574355
+Non Taxable,Non-resident,$45001 to $120000,37,2451809
+Non Taxable,Non-resident,$120001 to $180000,26,3984666
+Non Taxable,Non-resident,$180001 or more,3,1823485
+Non Taxable,Resident,$18200 or less,2205367,13695668626
+Non Taxable,Resident,$18201 to $45000,1022337,23548698260
+Non Taxable,Resident,$45001 to $120000,3678,237623837
+Non Taxable,Resident,$120001 to $180000,673,98863901
+Non Taxable,Resident,$180001 or more,1147,385669593
+Taxable,Non-resident,$18200 or less,69440,537878868
+Taxable,Non-resident,$18201 to $45000,51997,1562380162
+Taxable,Non-resident,$45001 to $120000,33008,2205989222
+Taxable,Non-resident,$120001 to $180000,3347,482806173
+Taxable,Non-resident,$180001 or more,3522,1618522496
+Taxable,Resident,$18200 or less,20816,179931090
+Taxable,Resident,$18201 to $45000,2892148,98883648621
+Taxable,Resident,$45001 to $120000,7425953,5.64829E+11
+Taxable,Resident,$120001 to $180000,1746931,2.52275E+11
+Taxable,Resident,$180001 or more,992749,3.35418E+11

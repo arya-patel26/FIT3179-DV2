@@ -60,7 +60,7 @@
           "field": "source",
           "type": "nominal",
           "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
-          "legend": null
+          "legend": {"title": "Contributors", "symbolType": "stroke", "symbolStrokeWidth": 6, "symbolSize": 400}
         },
         "tooltip": [
           {"field": "financial_year", "type": "nominal", "title": "Year"},

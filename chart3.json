@@ -4,14 +4,19 @@
   "height": 450,
   "title": "Average Individual Tax Contribution by Industry",
   "data": {
-    "url": "chart_data3.csv"
+    "url": "chart_data3.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"avg_tax_pp": "number"}
+    }
   },
   "encoding": {
     "y": {
       "field": "industry",
       "type": "nominal",
-      "title": "Industry",
-      "sort": {"field": "avg_tax_pp", "op": "max", "order": "descending"}
+      "title": null,
+      "sort": "-x",
+      "axis": {"labelLimit": 320, "labelFontSize": 11}
     },
     "x": {
       "field": "avg_tax_pp",
@@ -21,14 +26,8 @@
   },
   "layer": [
     {
-      "mark": {
-        "type": "bar",
-        "height": 6,
-        "cornerRadiusEnd": 3
-      },
-      "encoding": {
-        "color": {"value": "#cbd5e1"}
-      }
+      "mark": {"type": "bar", "height": 6, "cornerRadiusEnd": 3},
+      "encoding": {"color": {"value": "#cbd5e1"}}
     },
     {
       "mark": {
