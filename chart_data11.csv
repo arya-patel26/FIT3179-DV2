@@ -1,0 +1,10 @@
+﻿entity,asset_type,amount
+Individuals,Shares,16.3
+Companies,Shares,10.1
+Super funds,Shares,47.5
+Individuals,Real estate,38.6
+Companies,Real estate,5.8
+Super funds,Real estate,4
+Individuals,Other Assets,34.2
+Companies,Other Assets,10.2
+Super funds,Other Assets,55.2
