@@ -1,8 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Capital Gains Tax Breakdown by Entity and Asset Type",
-  "width": 400,
+  "title": {
+    "text": "Capital Gains Tax Breakdown by Entity and Asset Type",
+    "subtitle": "All amounts in $ billions"
+  },
+  "width": 640,
   "height": 400,
+  "autosize": {"type": "fit", "contains": "padding"},
   "data": {
     "url": "chart_data11.csv",
     "format": {
@@ -12,62 +16,70 @@
       }
     }
   },
+  "transform": [
+    {"calculate": "'$' + format(datum.amount, '.1f') + 'b'", "as": "label"}
+  ],
   "layer": [
     {
-      "mark": "rect",
+      "mark": {"type": "rect", "stroke": "#ffffff", "strokeWidth": 2},
       "encoding": {
         "x": {
           "field": "asset_type",
           "type": "nominal",
-          "title": "Asset Type"
+          "title": "Asset Type",
+          "axis": {"labelAngle": 0, "labelLimit": 120, "domain": false, "ticks": false}
         },
         "y": {
           "field": "entity",
           "type": "nominal",
-          "title": "Entity"
+          "title": "Entity",
+          "axis": {
+            "labelAngle": 0, "labelLimit": 150, "domain": false, "ticks": false,
+            "titleAngle": 0, "titleAlign": "left", "titleY": -12, "titleX": 0
+          }
         },
         "color": {
           "field": "amount",
           "type": "quantitative",
-          "title": "Amount",
-          "scale": {
-            "scheme": "greens"
-          }
+          "title": "Amount ($ billions)",
+          "scale": {"range": ["#eff6ff", "#bfdbfe", "#60a5fa", "#2563eb", "#1e40af"]},
+          "legend": {"format": "$.0f"}
         },
         "tooltip": [
           {"field": "entity", "title": "Entity"},
           {"field": "asset_type", "title": "Asset Type"},
-          {"field": "amount", "title": "Amount", "format": ".1f"}
+          {"field": "amount", "title": "Amount ($ billions)", "format": "$.1f"}
         ]
       }
     },
     {
-      "mark": {
-        "type": "text",
-        "baseline": "middle"
-      },
+      "mark": {"type": "text", "baseline": "middle", "fontSize": 11, "fontWeight": 600},
       "encoding": {
-        "x": {
-          "field": "asset_type",
-          "type": "nominal"
-        },
-        "y": {
-          "field": "entity",
-          "type": "nominal"
-        },
-        "text": {
-          "field": "amount",
-          "type": "quantitative",
-          "format": ".1f"
-        },
+        "x": {"field": "asset_type", "type": "nominal"},
+        "y": {"field": "entity", "type": "nominal"},
+        "text": {"field": "label", "type": "nominal"},
         "color": {
-          "condition": {
-            "test": "datum.amount > 30",
-            "value": "white"
-          },
-          "value": "black"
+          "condition": {"test": "datum.amount > 30", "value": "white"},
+          "value": "#1f2937"
         }
       }
     }
-  ]
+  ],
+  "config": {
+    "background": "transparent",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    "view": {"stroke": null},
+    "title": {
+      "anchor": "start", "color": "#111827", "fontSize": 15, "fontWeight": 600,
+      "subtitleColor": "#6b7280", "subtitleFontSize": 11
+    },
+    "axis": {
+      "labelColor": "#4b5563", "labelFontSize": 11,
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600
+    },
+    "legend": {
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
+      "labelColor": "#4b5563", "labelFontSize": 11
+    }
+  }
 }

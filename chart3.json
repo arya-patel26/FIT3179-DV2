@@ -2,7 +2,23 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 750,
   "height": 450,
+  "autosize": {"type": "fit", "contains": "padding"},
   "title": "Average Individual Tax Contribution by Industry",
+  "config": {
+    "background": "transparent",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    "view": {"stroke": null},
+    "title": {"anchor": "start", "color": "#111827", "fontSize": 15, "fontWeight": 600},
+    "axis": {
+      "domainColor": "#d1d5db", "tickColor": "#d1d5db", "gridColor": "#e5e7eb",
+      "labelColor": "#4b5563", "labelFontSize": 11,
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600
+    },
+    "legend": {
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
+      "labelColor": "#4b5563", "labelFontSize": 11, "symbolType": "square"
+    }
+  },
   "data": {
     "url": "chart_data3.csv",
     "format": {
@@ -27,15 +43,15 @@
   "layer": [
     {
       "mark": {"type": "bar", "height": 6, "cornerRadiusEnd": 3},
-      "encoding": {"color": {"value": "#cbd5e1"}}
+      "encoding": {"color": {"value": "#bfdbfe"}}
     },
     {
       "mark": {
         "type": "point",
         "filled": true,
         "fill": "#ffffff",
-        "stroke": "#1e3a8a",
-        "strokeWidth": 2,
+        "stroke": "#2563eb",
+        "strokeWidth": 2.5,
         "size": 140
       },
       "encoding": {

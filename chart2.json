@@ -2,13 +2,29 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 750,
   "height": 450,
+  "autosize": {"type": "fit", "contains": "padding"},
   "title": "State and Territory Tax Collection: 2015-16 vs 2024-25",
+  "config": {
+    "background": "transparent",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    "view": {"stroke": null},
+    "title": {"anchor": "start", "color": "#111827", "fontSize": 15, "fontWeight": 600},
+    "axis": {
+      "domainColor": "#d1d5db", "tickColor": "#d1d5db", "gridColor": "#e5e7eb",
+      "labelColor": "#4b5563", "labelFontSize": 11,
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600
+    },
+    "legend": {
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
+      "labelColor": "#4b5563", "labelFontSize": 11, "symbolType": "square"
+    }
+  },
   "data": {
     "url": "chart_data2.csv"
   },
   "layer": [
     {
-      "mark": {"type": "line", "color": "#cbd5e1", "strokeWidth": 3},
+      "mark": {"type": "line", "color": "#d1d5db", "strokeWidth": 3, "strokeCap": "round"},
       "encoding": {
         "y": {
           "field": "government",
@@ -25,7 +41,7 @@
       }
     },
     {
-      "mark": {"type": "point", "filled": true, "size": 140},
+      "mark": {"type": "point", "filled": true, "size": 140, "opacity": 1, "stroke": "#ffffff", "strokeWidth": 1.5},
       "encoding": {
         "y": {
           "field": "government",
@@ -42,8 +58,9 @@
           "title": "Financial Year",
           "scale": {
             "domain": ["2015-16", "2024-25"],
-            "range": ["#94a3b8", "#1e3a8a"]
-          }
+            "range": ["#93c5fd", "#2563eb"]
+          },
+          "legend": {"symbolType": "circle"}
         },
         "tooltip": [
           {"field": "government", "type": "nominal", "title": "Jurisdiction"},

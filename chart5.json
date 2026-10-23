@@ -2,6 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 750,
   "height": 450,
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"left": 5, "top": 5, "bottom": 5, "right": 170},
   "title": "Top Excise Tax Contributors",
   "data": {
     "url": "chart_data5.csv"
@@ -29,8 +31,8 @@
           "field": "source",
           "type": "nominal",
           "title": "Contributors",
-          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
-          "legend": {"title": "Contributors"}
+          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#2563eb"]},
+          "legend": null
         },
         "tooltip": [
           {"field": "financial_year", "type": "nominal", "title": "Year"},
@@ -59,8 +61,8 @@
         "color": {
           "field": "source",
           "type": "nominal",
-          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd"]},
-          "legend": {"title": "Contributors", "symbolType": "stroke", "symbolStrokeWidth": 6, "symbolSize": 400}
+          "scale": {"range": ["#999999", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#2563eb"]},
+          "legend": null
         },
         "tooltip": [
           {"field": "financial_year", "type": "nominal", "title": "Year"},
@@ -69,9 +71,29 @@
           {"field": "amount", "type": "quantitative", "title": "Contribution ($m)", "format": ","}
         ]
       }
+    },
+    {
+      "transform": [
+        {"joinaggregate": [{"op": "max", "field": "financial_year", "as": "last_year"}], "groupby": ["source"]},
+        {"filter": "datum.financial_year == datum.last_year"}
+      ],
+      "mark": {"type": "text", "align": "left", "dx": 12, "fontSize": 12, "fontWeight": 600, "color": "#374151"},
+      "encoding": {
+        "x": {"field": "financial_year", "type": "nominal"},
+        "y": {"field": "rank", "type": "quantitative", "scale": {"domain": [10, 1]}},
+        "text": {"field": "source", "type": "nominal"}
+      }
     }
   ],
   "config": {
-    "view": {"stroke": null}
+    "background": "transparent",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    "view": {"stroke": null},
+    "title": {"anchor": "start", "color": "#111827", "fontSize": 15, "fontWeight": 600},
+    "axis": {
+      "domainColor": "#d1d5db", "tickColor": "#d1d5db", "gridColor": "#e5e7eb",
+      "labelColor": "#4b5563", "labelFontSize": 11,
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600
+    }
   }
 }

@@ -9,7 +9,8 @@
       "height": 350,
       "title": "Tax Revenue Composition by Revenue Stream",
       "transform": [
-        {"filter": "datum.entity_type != 'Total'"}
+          {"filter": "datum.entity_type != 'Total'"},
+          {"calculate": "indexof(lower(datum.entity_type), 'income') >= 0 ? 1 : 0", "as": "is_income"}
       ],
       "mark": "area",
       "encoding": {
@@ -28,7 +29,8 @@
           "field": "entity_type",
           "type": "nominal",
           "title": "Revenue Stream",
-          "scale": {"range": ["#dde3ea", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#1c5a99", "#08306b"]}
+          "sort": {"field": "is_income", "op": "max", "order": "descending"},
+          "scale": {"range": ["#2563EB", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#999999"]}
         },
         "tooltip": [
           {"field": "income_year", "type": "nominal", "title": "Year"},
@@ -40,7 +42,7 @@
     {
       "width": 700,
       "height": 80,
-      "mark": "line",
+      "mark": {"type": "line", "color": "#1e40af", "strokeWidth": 2},
       "title": "Total Tax Revenue",
       "transform": [
         {"filter": "datum.entity_type == 'Total'"}
@@ -48,7 +50,11 @@
       "params": [
         {
           "name": "brush",
-          "select": {"type": "interval", "encodings": ["x"]}
+          "select": {
+            "type": "interval",
+            "encodings": ["x"],
+            "mark": {"fill": "#2563eb", "fillOpacity": 0.12, "stroke": "#2563eb", "strokeOpacity": 0.6}
+          }
         }
       ],
       "encoding": {
@@ -67,6 +73,18 @@
     }
   ],
   "config": {
-    "title": {"font": "sans-serif", "fontSize": 14}
+    "background": "transparent",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    "view": {"stroke": null},
+    "title": {"anchor": "start", "color": "#111827", "fontSize": 15, "fontWeight": 600},
+    "axis": {
+      "domainColor": "#d1d5db", "tickColor": "#d1d5db", "gridColor": "#e5e7eb",
+      "labelColor": "#4b5563", "labelFontSize": 11,
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600
+    },
+    "legend": {
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
+      "labelColor": "#4b5563", "labelFontSize": 11, "symbolType": "square"
+    }
   }
 }

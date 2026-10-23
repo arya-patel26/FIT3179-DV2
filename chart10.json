@@ -3,21 +3,22 @@
   "title": {
     "text": "Anatomy of 100 Australian Taxpayers (2022–23)",
     "anchor": "start",
-    "color": "#0f172a",
-    "fontSize": 17,
-    "fontWeight": 700,
+    "color": "#111827",
+    "fontSize": 15,
+    "fontWeight": 600,
     "dy": -12
   },
   "width": 450,
   "height": 450,
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
-    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     "view": {"stroke": null},
     "legend": {
       "title": null,
-      "labelColor": "#334155",
-      "labelFontSize": 12,
+      "labelColor": "#4b5563",
+      "labelFontSize": 11,
       "symbolType": "square",
       "symbolSize": 160,
       "rowPadding": 6,
@@ -66,6 +67,7 @@
   "mark": {
     "type": "square",
     "size": 1300,
+    "opacity": 1,
     "stroke": "#ffffff",
     "strokeWidth": 2,
     "cursor": "pointer"
@@ -86,7 +88,7 @@
       "field": "active_category",
       "type": "nominal",
       "scale": {
-        "range": ["#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd", "#999999"]
+        "range": ["#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#2563eb", "#999999"]
       }
     }
   }
