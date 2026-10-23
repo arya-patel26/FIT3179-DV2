@@ -3,24 +3,25 @@
   "title": {
     "text": "Anatomy of 100 Australian Taxpayers (2022–23)",
     "anchor": "start",
-    "color": "#111827",
-    "fontSize": 15,
-    "fontWeight": 600,
-    "dy": -10
+    "color": "#0f172a",
+    "fontSize": 17,
+    "fontWeight": 700,
+    "dy": -12
   },
   "width": 450,
   "height": 450,
   "config": {
     "background": "transparent",
-    "font": "Arial",
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
     "view": {"stroke": null},
     "legend": {
-      "titleColor": "#374151",
-      "titleFontSize": 11,
-      "titleFontWeight": 600,
-      "labelColor": "#4b5563",
-      "labelFontSize": 10,
-      "padding": 8,
+      "title": null,
+      "labelColor": "#334155",
+      "labelFontSize": 12,
+      "symbolType": "square",
+      "symbolSize": 160,
+      "rowPadding": 6,
+      "padding": 10,
       "orient": "right",
       "direction": "vertical"
     }
@@ -64,7 +65,7 @@
   ],
   "mark": {
     "type": "square",
-    "size": 600,
+    "size": 1300,
     "stroke": "#ffffff",
     "strokeWidth": 2,
     "cursor": "pointer"
@@ -84,9 +85,8 @@
     "color": {
       "field": "active_category",
       "type": "nominal",
-      "title": "Category",
       "scale": {
-        "scheme": "tableau10"
+        "range": ["#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#3182bd", "#999999"]
       }
     }
   }

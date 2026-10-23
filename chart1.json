@@ -57,17 +57,6 @@
         ],
         "name": "Map Centre: "
       }
-    },
-    {
-      "name": "zoom_boost",
-      "value": 1,
-      "bind": {
-        "input": "range",
-        "min": 1,
-        "max": 5,
-        "step": 0.1,
-        "name": "Zoom Level: "
-      }
     }
   ],
   "data": {
@@ -101,8 +90,8 @@
   "projection": {
     "type": "mercator",
     "center": {"expr": "[map_view[0], map_view[1]]"},
-    "scale": {"expr": "map_view[2] * zoom_boost"}
-  },
+    "scale": {"expr": "map_view[2]"}
+    },
   "mark": {
     "type": "geoshape",
     "stroke": "#ffffff",
