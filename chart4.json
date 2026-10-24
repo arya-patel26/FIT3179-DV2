@@ -7,7 +7,6 @@
     {
       "width": 732,
       "height": 320,
-      "title": "Tax Revenue Composition by Revenue Stream",
       "transform": [
           {"filter": "datum.entity_type != 'Total'"},
           {"calculate": "indexof(lower(datum.entity_type), 'income') >= 0 ? 1 : 0", "as": "is_income"}
@@ -30,7 +29,7 @@
           "type": "nominal",
           "title": "Revenue Stream",
           "sort": {"field": "is_income", "op": "max", "order": "descending"},
-          "scale": {"range": ["#2563EB", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#999999"]}
+          "scale": {"range": ["#2563eb", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#999999"]}
         },
         "tooltip": [
           {"field": "income_year", "type": "nominal", "title": "Year"},
@@ -42,7 +41,7 @@
     {
       "width": 732,
       "height": 80,
-      "mark": {"type": "line", "color": "#1e40af", "strokeWidth": 2},
+      "mark": {"type": "line", "color": "#2563eb", "strokeWidth": 2},
       "title": {"text": "Total Tax Revenue"},
       "transform": [
         {"filter": "datum.entity_type == 'Total'"}

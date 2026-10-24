@@ -3,7 +3,6 @@
   "width": 800,
   "height": 450,
   "autosize": {"type": "fit", "contains": "padding"},
-  "title": "Average Individual Tax Contribution by Industry",
   "config": {
     "background": "transparent",
     "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",

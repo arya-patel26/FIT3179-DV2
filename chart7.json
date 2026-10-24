@@ -3,7 +3,6 @@
   "width": 800,
   "height": 450,
   "autosize": {"type": "fit", "contains": "padding"},
-  "title": "Proportion of Taxpayers vs Net Tax Contribution",
   "params": [
     {
       "name": "SelectedYear",

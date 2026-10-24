@@ -1,9 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Capital Gains Tax Breakdown by Entity and Asset Type",
-    "subtitle": "All amounts in $ billions"
-  },
   "width": 800,
   "height": 450,
   "autosize": {"type": "fit", "contains": "padding"},

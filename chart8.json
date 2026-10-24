@@ -1,23 +1,16 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Average Charitable Donation by State (2023–24)",
-    "subtitle": "Icon size is proportional to the average donation",
-    "anchor": "start",
-    "color": "#111827",
-    "fontSize": 15,
-    "fontWeight": 600,
-    "subtitleColor": "#6b7280",
-    "subtitleFontSize": 11,
-    "dy": -10
-  },
   "width": 800,
   "height": 650,
   "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
     "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    "view": {"stroke": null}
+    "view": {"stroke": null},
+    "legend": {
+      "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
+      "labelColor": "#4b5563", "labelFontSize": 11
+    }
   },
   "projection": {
     "type": "mercator",
@@ -90,8 +83,20 @@
             "size": {
               "field": "average_donation",
               "type": "quantitative",
+              "title": "Average donation",
               "scale": {"range": [250, 1200], "domain": [600, 1700]},
-              "legend": null
+              "legend": {
+                "values": [500, 1000, 2000],
+                "format": "$,.0f",
+                "symbolType": "M-0.9,-0.3 H-0.1 V0 H-0.9 Z M0.1,-0.3 H0.9 V0 H0.1 Z M-0.8,0.1 H-0.1 V0.95 H-0.8 Z M0.1,0.1 H0.8 V0.95 H0.1 Z M-0.05,-0.4 C-0.1,-0.95 -0.85,-0.95 -0.6,-0.55 C-0.5,-0.4 -0.3,-0.4 -0.05,-0.4 Z M0.05,-0.4 C0.1,-0.95 0.85,-0.95 0.6,-0.55 C0.5,-0.4 0.3,-0.4 0.05,-0.4 Z",
+                "symbolFillColor": "#2563eb",
+                "symbolStrokeColor": "#ffffff",
+                "symbolOpacity": 0.9,
+                "orient": "bottom-left",
+                "direction": "horizontal",
+                "columnPadding": 28,
+                "offset": 10
+              }
             },
             "tooltip": [
               {"field": "state", "title": "State / Territory"},
@@ -103,25 +108,13 @@
         {
           "mark": {
             "type": "text",
-            "dy": -26,
-            "fontSize": 10,
-            "fontWeight": 600,
-            "color": "#4b5563"
-          },
-          "encoding": {
-            "text": {"field": "state", "type": "nominal"}
-          }
-        },
-        {
-          "mark": {
-            "type": "text",
             "dy": 26,
             "fontSize": 10,
             "fontWeight": 600,
             "color": "#4b5563"
           },
           "encoding": {
-            "text": {"field": "average_donation", "type": "quantitative", "format": "$,.0f"}
+            "text": {"field": "state", "type": "nominal"}
           }
         }
       ]

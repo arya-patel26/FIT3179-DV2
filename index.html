@@ -57,15 +57,6 @@
     .masthead nav a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
     .masthead nav a:hover { color: var(--text-main); text-decoration: none; }
 
-    .draft-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: #e0e7ff;
-      color: #3730a3;
-      padding: 4px 8px;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-    }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -102,6 +93,9 @@
       color: var(--text-muted);
       line-height: 1.6;
     }
+
+    .intro p + p { margin-top: 12px; }
+    .intro strong { color: var(--text-main); font-weight: 700; }
 
     .jump { font-weight: 600; font-size: 0.95rem; }
 
@@ -155,13 +149,23 @@
 
     .story-chart { flex: 0 0 auto; max-width: 100%; min-width: 0; }
 
+    /* Insight line above each chart title */
     .kicker {
-      font-size: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    /* Chart title (replaces the title inside each Vega spec) */
+    .chart-title {
+      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--text-light);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 14px;
     }
 
     .chart { min-height: 300px; }
@@ -221,16 +225,26 @@
     }
 
     .source-grid h3 { font-size: 1rem; margin-bottom: 8px; }
+    .source-list { list-style: none; }
+    .source-list li { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .source-list a { font-weight: 600; }
     .source-grid p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
 
-    footer {
-      padding: 32px;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      color: var(--text-light);
-      display: flex;
-      justify-content: space-between;
+    footer.wrap {
+    max-width: none;
+    padding: 36px 32px 44px;
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
     }
+
+    footer.wrap strong { color: var(--text-main); }
+    footer.wrap a { font-weight: 600; }
 
     /* ---------- Narrower screens: stack note under chart ---------- */
     @media (max-width: 1340px) {
@@ -263,7 +277,6 @@
     <a href="#block-3">03 / Beyond Income Tax</a>
     <a href="#block-4">04 / The People</a>
   </nav>
-  <span class="draft-label">DRAFT V2</span>
 </header>
 
 <main id="main">
@@ -272,7 +285,10 @@
     <p class="eyebrow">DATA VISUALISATION 2 · DASHBOARD</p>
     <h1>Australian Taxation & Income Trends</h1>
     <div class="hero-bottom">
-      <p class="intro">From the national ledger to the individual taxpayer, this dashboard traces where Australia’s tax revenue comes from, how it varies by state and postcode, and who ultimately carries the load.</p>
+      <div class="intro">
+        <p>Behind every dollar of public revenue sits a decision, an industry and a household. In 2023-24, Australia collected approximately <strong>$631 billion</strong> in tax, more than double the revenue raised in 2009-10. Individual income tax accounts for just over half of that total, company tax for close to a quarter, and the remainder is drawn from the GST, superannuation funds, excise and other levies.</p>
+        <p>This dashboard traces that revenue from the national ledger down to the individual taxpayer. It examines how the burden is distributed across states and postcodes, the role of taxes beyond income, and the people and industries that ultimately carry it.</p>
+      </div>
       <a class="jump" href="#block-1">Explore the charts <span aria-hidden="true">↓</span></a>
     </div>
   </section>
@@ -290,7 +306,8 @@
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 01 · Tax revenue by stream</p>
+          <p class="kicker">Revenue has grown steadily, led by income tax</p>
+          <h3 class="chart-title">Tax Revenue Composition by Revenue Stream</h3>
           <div class="chart" id="chart4"></div>
         </div>
         <aside class="note">
@@ -302,13 +319,14 @@
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 02 · Taxpayers versus tax paid</p>
+          <p class="kicker">Higher earners carry a growing share of net tax</p>
+          <h3 class="chart-title">Proportion of Taxpayers vs Net Tax Contribution</h3>
           <div class="chart" id="chart7"></div>
         </div>
         <aside class="note">
           <p class="stat">39%</p>
           <p class="stat-label">Of net tax, from $180,000+</p>
-          <p>That bracket’s share has climbed from <strong>26%</strong>. The <strong>$45,000–$120,000</strong> band follows at <strong>37%</strong>.</p>
+          <p>Earners above <strong>$180,000</strong> are only <strong>6%</strong> of taxpayers but contribute the most tax. Their share has tripled since 2010–11, consistent with inflation pushing people into higher brackets, yet fewer than <strong>40%</strong> still earn under $45,000.</p>
         </aside>
       </article>
     </div>
@@ -327,49 +345,53 @@
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 03 · Tax collected by state, 2015–16 and 2024–25</p>
+          <p class="kicker">Every state and territory is collecting more tax</p>
+          <h3 class="chart-title">State and Territory Tax Collection: 2015-16 vs 2024-25</h3>
           <div class="chart" id="chart2"></div>
         </div>
         <aside class="note">
           <p class="stat">VIC &amp; QLD</p>
           <p class="stat-label">Fastest growth</p>
-          <p>Every jurisdiction grew. <strong>NSW</strong>, <strong>Victoria</strong> and <strong>Queensland</strong> collect the most; the <strong>Northern Territory</strong> expanded slowest.</p>
+          <p>Every jurisdiction grew. <strong>NSW, VIC and QLD</strong> are also the largest collectors, together about <strong>80%</strong> of the total, while the <strong>NT</strong> expanded slowest.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 04 · Median taxable income by postcode</p>
+          <p class="kicker">Incomes cluster nationally, with pockets of high earners</p>
+          <h3 class="chart-title">Median Taxable Income by Postcode (2023–24)</h3>
           <div class="chart" id="chart1"></div>
         </div>
         <aside class="note">
           <p class="stat">WA &amp; QLD</p>
           <p class="stat-label">High-income pockets</p>
-          <p>Incomes sit in a <strong>consistent band</strong> nationally, lifted in regional areas by <strong>mining and resources</strong> roles.</p>
+          <p>Incomes sit in a <strong>consistent band</strong> nationally, lifted in regional areas of <strong>WA and QLD</strong> by <strong>mining and resources</strong> roles.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 05 · Ten highest-income postcodes</p>
+          <p class="kicker">High-income postcodes cluster in a few states</p>
+          <h3 class="chart-title">Top 10 Australian Postcodes by Average Taxable Income (2023–24)</h3>
           <div class="chart" id="chart6"></div>
         </div>
         <aside class="note">
-          <p class="stat">7 of 10</p>
-          <p class="stat-label">Are in New South Wales</p>
-          <p>Two sit in Victoria and one in WA. <strong>Portsea (3944)</strong> leads, lifted by a small, high-net-worth population.</p>
+          <p class="stat">3 states</p>
+          <p class="stat-label">Hold every top-10 postcode</p>
+          <p>NSW holds <strong>seven</strong>, VIC two and WA one. <strong>Portsea (3944)</strong> ranks first: a niche area where fewer than <strong>700</strong> high-net-worth taxpayers lift the average.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 06 · Ten lowest-income postcodes</p>
+          <p class="kicker">The lowest-income postcodes sit far from the national norm</p>
+          <h3 class="chart-title">Bottom 10 Australian Postcodes by Average Taxable Income (2023–24)</h3>
           <div class="chart" id="chart12"></div>
         </div>
         <aside class="note">
-          <p class="stat warm">Rank 1</p>
-          <p class="stat-label">Lowest average income</p>
-          <p>Darker dots mark the <strong>lowest</strong> averages; lighter dots sit closer to the tenth rung.</p>
+          <p class="stat warm">2 universities</p>
+          <p class="stat-label">At the very bottom</p>
+          <p>Most low-income postcodes are scattered across <strong>regional areas</strong>, but the two lowest are <strong>university areas</strong>, likely reflecting large student populations. Ironically, eight of the ten sit in <strong>NSW, QLD and VIC</strong>, the three largest states.</p>
         </aside>
       </article>
     </div>
@@ -388,37 +410,40 @@
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 07 · Excise sources by rank</p>
+          <p class="kicker">Fuel dominates excise while tobacco fades</p>
+          <h3 class="chart-title">Top Excise Tax Contributors</h3>
           <div class="chart" id="chart5"></div>
         </div>
         <aside class="note">
           <p class="stat">Fuel first</p>
           <p class="stat-label">Diesel and petrol</p>
-          <p><strong>Diesel</strong> and <strong>petrol</strong> hold the top spots. <strong>Spirits</strong> climbed steadily, while <strong>cigarettes</strong> fell away entirely.</p>
+          <p><strong>Diesel and petrol</strong> hold the top spots. Spirits climbed steadily, while <strong>cigarettes and tobacco</strong> dropped out of the ranking entirely.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 08 · Capital gains tax by entity and asset</p>
+          <p class="kicker">Capital gains tax is unevenly spread across entities and assets</p>
+          <h3 class="chart-title">Capital Gains Tax Breakdown by Entity and Asset Type</h3>
           <div class="chart" id="chart11"></div>
         </div>
         <aside class="note">
-          <p class="stat">$ billions</p>
-          <p class="stat-label">Capital gains tax</p>
-          <p>Each square shows the tax on gains for one <strong>entity</strong> and <strong>asset type</strong>. The darkest squares mark the <strong>largest</strong> bills.</p>
+          <p class="stat">48%</p>
+          <p class="stat-label">Of gains sit in super funds</p>
+          <p>Capital gains are heavily skewed: <strong>super funds</strong> hold the most, led by other assets and shares. Individuals follow at about <strong>40%</strong>, mostly in <strong>real estate</strong>, so wealth sits with individuals and their super funds rather than companies.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 09 · Average charitable donation by state</p>
+          <p class="kicker">Giving varies noticeably between states</p>
+          <h3 class="chart-title">Average Charitable Donation by State (2023–24)</h3>
           <div class="chart" id="chart8"></div>
         </div>
         <aside class="note">
-          <p class="stat">Gifts</p>
-          <p class="stat-label">Claimed per taxpayer</p>
-          <p>Icon size scales with the <strong>average gift</strong> claimed in each state or territory.</p>
+          <p class="stat">WA</p>
+          <p class="stat-label">Highest average gift</p>
+          <p><strong>WA</strong> leads, followed by VIC and the ACT. WA's lead is often linked to its high-paying <strong>mining</strong> workforce, while the ACT's figure reflects a <strong>smaller population</strong>, which concentrates the average.</p>
         </aside>
       </article>
     </div>
@@ -437,37 +462,40 @@
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 10 · Average tax per person by industry</p>
+          <p class="kicker">Average tax paid differs widely by industry</p>
+          <h3 class="chart-title">Average Individual Tax Contribution by Industry</h3>
           <div class="chart" id="chart3"></div>
         </div>
         <aside class="note">
           <p class="stat">5×</p>
-          <p class="stat-label">Health care versus transport</p>
-          <p><strong>Health care</strong> and <strong>finance</strong> contribute the most per person, with <strong>mining</strong> in the top five.</p>
+          <p class="stat-label">Health care versus the lowest</p>
+          <p><strong>Health care</strong> pays about <strong>five times</strong> the lowest industries, reflecting high-paying professions. Finance and mining follow, while hospitality, transport and administrative support form the <strong>lower tail</strong>.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 11 · Taxpayers by status, residency and bracket</p>
+          <p class="kicker">Most taxpayers are taxable residents</p>
+          <h3 class="chart-title">Number of Individuals by Taxable Status, Residency and Tax Bracket</h3>
           <div class="chart" id="chart9"></div>
         </div>
         <aside class="note">
-          <p class="stat">98%</p>
-          <p class="stat-label">Are residents</p>
-          <p>Roughly <strong>four in five</strong> individuals are taxable. Non-residents form a thin sliver of every group.</p>
+          <p class="stat">20%</p>
+          <p class="stat-label">Of individuals are non-taxable</p>
+          <p>One in five individuals pays no tax, yet they hold only about <strong>3%</strong> of taxable income, so their effect on revenue is small. <strong>Non-residents</strong> are few, <strong>under 2%</strong> of individuals, and a small slice of every group.</p>
         </aside>
       </article>
 
       <article class="story">
         <div class="story-chart">
-          <p class="kicker">Fig. 12 · A snapshot of 100 taxpayers</p>
+          <p class="kicker">Who the typical taxpayer is depends on how you slice it</p>
+          <h3 class="chart-title">Anatomy of 100 Australian Taxpayers (2022–23)</h3>
           <div class="chart" id="chart10"></div>
         </div>
         <aside class="note">
-          <p class="stat">1 in 100</p>
-          <p class="stat-label">Each square is one taxpayer</p>
-          <p>Use the menu to <strong>re-colour</strong> the grid by sex, location, generation, lodgement, occupation or outcome.</p>
+          <p class="stat">100</p>
+          <p class="stat-label">Taxpayers, one snapshot</p>
+          <p>Split evenly by sex, the typical group is mostly <strong>Gen X and Y</strong>, white-collar, lodges through a tax agent and receives a <strong>refund</strong>.</p>
         </aside>
       </article>
     </div>
@@ -476,13 +504,22 @@
 
   <section class="wrap sources" id="sources">
     <p class="eyebrow">ABOUT THE DATA</p>
-    <h2>Data Sources & Limitations</h2>
+    <h2>Data Sources & Methodology</h2>
     <div class="source-grid">
       <div>
         <h3>Official Resources</h3>
+        <ul class="source-list">
+          <li>Individual taxpayer data (income, industry, residency, charitable gifts and capital gains tax) were sourced from the Australian Taxation Office, <a href="https://data.gov.au/data/dataset/taxation-statistics-2023-24" target="_blank" rel="noopener">Taxation Statistics 2023–24</a>, accessed via data.gov.au.</li>
+          <li>Tax revenue by stream and by state and territory was sourced from the Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/economy/government/taxation-revenue-australia/latest-release" target="_blank" rel="noopener">Taxation Revenue, Australia</a> (latest release).</li>
+          <li>Supporting tables and definitions were drawn from the Australian Taxation Office, <a href="https://www.ato.gov.au/about-ato/research-and-statistics/in-detail/taxation-statistics/taxation-statistics-2023-24/statistics-in-taxation-statistics-2023-24" target="_blank" rel="noopener">Statistics in Taxation Statistics 2023–24</a>.</li>
+          <li>Postcode and state boundaries were sourced from the Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files" target="_blank" rel="noopener">Australian Statistical Geography Standard (ASGS) digital boundary files</a>.</li>
+        </ul>
       </div>
       <div>
         <h3>Methodology</h3>
+        <ul class="source-list">
+          <li>Generative AI was used to debug Vega-Lite specifications, wrangle larger datasets, and refine narrative text. All figures were computed directly from the official sources listed above.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -490,8 +527,8 @@
 </main>
 
 <footer class="wrap">
-  <p><strong>Arya Patel</strong> · Data Visualisation 2</p>
-  <p>Created with Vega &amp; Vega-Lite.</p>
+  <p>Created by <strong>Arya Patel</strong> · FIT3179 Data Visualisation 2 · October 2026</p>
+  <p>Chart specifications (Vega &amp; Vega-Lite) can be found on <a href="https://github.com/arya-patel26/FIT3179-DV2" target="_blank" rel="noopener">GitHub</a>.</p>
 </footer>
 
 
@@ -500,18 +537,18 @@
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
 <script>
-  vegaEmbed('#chart1', 'chart1.json');
-  vegaEmbed('#chart2', 'chart2.json');
-  vegaEmbed('#chart3', 'chart3.json');
-  vegaEmbed('#chart4', 'chart4.json');
-  vegaEmbed('#chart5', 'chart5.json');
-  vegaEmbed('#chart6', 'chart6.json');
-  vegaEmbed('#chart7', 'chart7.json');
-  vegaEmbed('#chart8', 'chart8.json');
-  vegaEmbed('#chart9', 'chart9.json');
-  vegaEmbed('#chart10', 'chart10.json');
-  vegaEmbed('#chart11', 'chart11.json');
-  vegaEmbed('#chart12', 'chart12.json');
+  vegaEmbed('#chart1', 'chart1.json', {actions: false});
+  vegaEmbed('#chart2', 'chart2.json', {actions: false});
+  vegaEmbed('#chart3', 'chart3.json', {actions: false});
+  vegaEmbed('#chart4', 'chart4.json', {actions: false});
+  vegaEmbed('#chart5', 'chart5.json', {actions: false});
+  vegaEmbed('#chart6', 'chart6.json', {actions: false});
+  vegaEmbed('#chart7', 'chart7.json', {actions: false});
+  vegaEmbed('#chart8', 'chart8.json', {actions: false});
+  vegaEmbed('#chart9', 'chart9.json', {actions: false});
+  vegaEmbed('#chart10', 'chart10.json', {actions: false});
+  vegaEmbed('#chart11', 'chart11.json', {actions: false});
+  vegaEmbed('#chart12', 'chart12.json', {actions: false});
 </script>
 
 </body>

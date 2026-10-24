@@ -3,7 +3,6 @@
   "width": 800,
   "height": 650,
   "autosize": {"type": "fit", "contains": "padding"},
-  "title": "Top 10 Australian Postcodes by Average Taxable Income (2023–24)",
   "params": [
     {
       "name": "map_view",
