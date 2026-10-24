@@ -8,9 +8,8 @@
     "fontWeight": 600,
     "dy": -12
   },
-  "width": 450,
+  "width": 800,
   "height": 450,
-  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "background": "transparent",
     "font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -23,8 +22,9 @@
       "symbolSize": 160,
       "rowPadding": 6,
       "padding": 10,
-      "orient": "right",
-      "direction": "vertical"
+      "orient": "bottom",
+      "direction": "horizontal",
+      "columns": 10
     }
   },
   "params": [
@@ -62,11 +62,22 @@
     {
       "calculate": "selected_attr == 'sex' ? datum.sex : selected_attr == 'location' ? datum.location : selected_attr == 'generation' ? datum.generation : selected_attr == 'lodgement' ? datum.lodgement : selected_attr == 'occupation' ? datum.occupation : datum.tax_outcome",
       "as": "active_category"
+    },
+    {
+      "joinaggregate": [{"op": "count", "as": "cat_count"}],
+      "groupby": ["active_category"]
+    },
+    {
+      "joinaggregate": [{"op": "count", "as": "total_count"}]
+    },
+    {
+      "calculate": "datum.cat_count / datum.total_count * 100",
+      "as": "cat_pct"
     }
   ],
   "mark": {
     "type": "square",
-    "size": 1300,
+    "size": 1000,
     "opacity": 1,
     "stroke": "#ffffff",
     "strokeWidth": 2,
@@ -88,8 +99,12 @@
       "field": "active_category",
       "type": "nominal",
       "scale": {
-        "range": ["#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#7B3F9E", "#332288", "#2563eb", "#999999"]
+        "range": ["#7B3F9E", "#2563eb", "#88CCEE", "#44AA99", "#117733", "#4477AA", "#B9A3E3", "#332288", "#999999"]
       }
-    }
+    },
+    "tooltip": [
+      {"field": "active_category", "type": "nominal", "title": "Category"},
+      {"field": "cat_count", "type": "quantitative", "title": "People (out of 100)"}
+    ]
   }
 }

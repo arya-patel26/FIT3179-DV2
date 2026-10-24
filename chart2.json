@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 750,
+  "width": 800,
   "height": 450,
   "autosize": {"type": "fit", "contains": "padding"},
   "title": "State and Territory Tax Collection: 2015-16 vs 2024-25",
@@ -35,7 +35,15 @@
         "x": {
           "field": "tax",
           "type": "quantitative",
-          "title": "Tax Collection ($m)"
+          "title": "Tax Collection ($m)",
+          "scale": {
+            "domain": [0, 65000],
+            "nice": false
+          },
+          "axis": {
+            "values": [0, 10000, 20000, 30000, 40000, 50000, 60000],
+            "format": ",d"
+          }
         },
         "detail": {"field": "government"}
       }
@@ -50,7 +58,15 @@
         },
         "x": {
           "field": "tax",
-          "type": "quantitative"
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 65000],
+            "nice": false
+          },
+          "axis": {
+            "values": [0, 10000, 20000, 30000, 40000, 50000, 60000],
+            "format": ",d"
+          }
         },
         "color": {
           "field": "year",

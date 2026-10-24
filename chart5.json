@@ -1,9 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 750,
+  "width": 800,
   "height": 450,
   "autosize": {"type": "fit", "contains": "padding"},
-  "padding": {"left": 5, "top": 5, "bottom": 5, "right": 170},
   "title": "Top Excise Tax Contributors",
   "data": {
     "url": "chart_data5.csv"

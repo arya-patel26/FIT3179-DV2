@@ -1,17 +1,34 @@
+
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 800,
-  "height": 480,
+  "height": 445,
+  "padding": {"left": 1, "top": 1, "bottom": 10, "right": 1},
   "autosize": {"type": "fit", "contains": "padding"},
   "data": [
     {
       "name": "rows",
       "url": "chart_data9.csv",
-      "format": {"type": "csv", "parse": {"individuals": "number"}},
+      "format": {
+        "type": "csv",
+        "parse": {"individuals": "number"}
+      },
       "transform": [
-        {"type": "formula", "as": "id", "expr": "datum.taxable_status + '|' + datum.residency_status + '|' + datum.tax_brackets"},
-        {"type": "formula", "as": "parent", "expr": "datum.taxable_status"},
-        {"type": "formula", "as": "name", "expr": "[datum.taxable_status + ' ' + datum.residency_status, ' ' + datum.tax_brackets]"}
+        {
+          "type": "formula",
+          "as": "id",
+          "expr": "datum.taxable_status + '|' + datum.residency_status + '|' + datum.tax_brackets"
+        },
+        {
+          "type": "formula",
+          "as": "parent",
+          "expr": "datum.taxable_status"
+        },
+        {
+          "type": "formula",
+          "as": "name",
+          "expr": "[datum.taxable_status + ' ' + datum.residency_status, ' ' + datum.tax_brackets]"
+        }
       ]
     },
     {
@@ -26,19 +43,37 @@
       "name": "tree",
       "source": ["groups", "rows"],
       "transform": [
-        {"type": "stratify", "key": "id", "parentKey": "parent"},
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
         {
           "type": "treemap",
           "field": "individuals",
           "method": "squarify",
-          "size": [{"signal": "width"}, {"signal": "height"}]
+          "size": [
+            {"signal": "width"},
+            {"signal": "height"}
+          ]
         }
       ]
     },
-    {"name": "leaves", "source": "tree", "transform": [{"type": "filter", "expr": "datum.depth === 2"}]}
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {"type": "filter", "expr": "datum.depth === 2"}
+      ]
+    }
   ],
   "scales": [
-    {"name": "color", "type": "ordinal", "domain": ["Taxable", "Non Taxable"], "range": ["#2563eb", "#bfdbfe"]}
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Taxable", "Non Taxable"],
+      "range": ["#2563eb", "#bfdbfe"]
+    }
   ],
   "marks": [
     {
@@ -46,11 +81,18 @@
       "from": {"data": "leaves"},
       "encode": {
         "update": {
-          "x": {"field": "x0"}, "y": {"field": "y0"},
-          "x2": {"field": "x1"}, "y2": {"field": "y1"},
-          "fill": {"scale": "color", "field": "taxable_status"},
+          "x": {"field": "x0"},
+          "y": {"field": "y0"},
+          "x2": {"field": "x1"},
+          "y2": {"field": "y1"},
+          "fill": {
+            "scale": "color",
+            "field": "taxable_status"
+          },
           "stroke": {"value": "white"},
-          "tooltip": {"signal": "{'Tax Bracket': datum.tax_brackets, 'Status': datum.taxable_status + ' ' + datum.residency_status, 'Individuals': format(datum.individuals, ',')}"}
+          "tooltip": {
+            "signal": "{'Tax Bracket': datum.tax_brackets, 'Status': datum.taxable_status + ' ' + datum.residency_status, 'Individuals': format(datum.individuals, ',')}"
+          }
         }
       }
     },
@@ -62,14 +104,78 @@
           "x": {"signal": "datum.x0 + 6"},
           "y": {"signal": "datum.y0 + 6"},
           "text": {"field": "name"},
-          "font": {"value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},
+          "font": {
+            "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+          },
           "fontSize": {"value": 11},
           "fontWeight": {"value": 500},
           "lineHeight": {"value": 14},
           "baseline": {"value": "top"},
-          "fill": {"signal": "datum.taxable_status === 'Taxable' ? '#ffffff' : '#1e3a8a'"},
-          "limit": {"signal": "datum.x1 - datum.x0 - 12"},
-          "opacity": {"signal": "(datum.x1 - datum.x0) > 90 && (datum.y1 - datum.y0) > 36 ? 1 : 0"}
+          "fill": {
+            "signal": "datum.taxable_status === 'Taxable' ? '#ffffff' : '#1e3a8a'"
+          },
+          "limit": {
+            "signal": "datum.x1 - datum.x0 - 12"
+          },
+          "opacity": {
+            "signal": "(datum.x1 - datum.x0) > 90 && (datum.y1 - datum.y0) > 36 ? 1 : 0"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "encode": {
+        "update": {
+          "x": {"value": 10},
+          "y": {"signal": "height + 12"},
+          "width": {"value": 12},
+          "height": {"value": 12},
+          "fill": {"value": "#2563eb"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {"value": 28},
+          "y": {"signal": "height + 18"},
+          "text": {"value": "Taxable"},
+          "font": {
+            "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+          },
+          "fontSize": {"value": 11},
+          "fill": {"value": "#374151"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "encode": {
+        "update": {
+          "x": {"value": 105},
+          "y": {"signal": "height + 12"},
+          "width": {"value": 12},
+          "height": {"value": 12},
+          "fill": {"value": "#bfdbfe"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {"value": 123},
+          "y": {"signal": "height + 18"},
+          "text": {"value": "Non-taxable"},
+          "font": {
+            "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+          },
+          "fontSize": {"value": 11},
+          "fill": {"value": "#374151"},
+          "baseline": {"value": "middle"}
         }
       }
     }

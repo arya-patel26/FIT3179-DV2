@@ -1,17 +1,17 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 800,
-  "height": 700,
+  "height": 650,
   "autosize": {"type": "fit", "contains": "padding"},
   "title": "Bottom 10 Australian Postcodes by Average Taxable Income (2023–24)",
   "params": [
     {
       "name": "map_view",
-      "value": [134, -27, 850],
+      "value": [134, -27, 750],
         "bind": {
         "input": "select",
         "options": [
-            [134, -27, 850],
+            [134, -27, 750],
             [147.3, -33.0, 2980],
             [145.4, -36.6, 4630],
             [145.8, -20.2, 1700],
@@ -39,8 +39,7 @@
   "projection": {
     "type": "mercator",
     "center": {"expr": "[map_view[0], map_view[1]]"},
-    "scale": {"expr": "map_view[2]"},
-    "translate": [400, 300]
+    "scale": {"expr": "map_view[2]"}
   },
   "layer": [
     {
@@ -50,9 +49,20 @@
       },
       "mark": {
         "type": "geoshape",
+        "fill": "#e5e7eb",
+        "stroke": null
+      }
+    },
+    {
+      "data": {
+        "url": "STE_2026_AUST_GDA2020.json",
+        "format": {"type": "topojson", "feature": "STE_2026_AUST_GDA2020"}
+      },
+      "mark": {
+        "type": "geoshape",
         "fill": "#f3f4f6",
         "stroke": "#d1d5db",
-        "strokeWidth": 0.3
+        "strokeWidth": 0.8
       }
     },
     {
@@ -100,9 +110,34 @@
           {"field": "postcode", "type": "nominal", "title": "Postcode"},
           {"field": "state", "type": "nominal", "title": "State"},
           {"field": "suburb", "type": "nominal", "title": "Suburbs"},
-          {"field": "average_taxable_income", "type": "quantitative", "title": "Average Income", "format": "$,.2f"},
-          {"field": "individuals", "type": "quantitative", "title": "Individuals", "format": ",d"}
+          {"field": "average_taxable_income", "type": "quantitative", "title": "Average Income", "format": "$,.2f"}
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "WA", "lat": -25.0, "lon": 122.0},
+          {"state": "NSW", "lat": -31.8, "lon": 147.0},
+          {"state": "VIC", "lat": -36.6, "lon": 144.9},
+          {"state": "ACT", "lat": -35.4, "lon": 149.1},
+          {"state": "QLD", "lat": -22.5, "lon": 143.0},
+          {"state": "SA", "lat": -30.0, "lon": 135.0},
+          {"state": "TAS", "lat": -42.0, "lon": 146.5},
+          {"state": "NT", "lat": -20.0, "lon": 133.0}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 600,
+        "color": "#4b5563",
+        "dy": 0
+      },
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
       }
     }
   ],

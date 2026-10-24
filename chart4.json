@@ -5,8 +5,8 @@
   },
   "vconcat": [
     {
-      "width": 700,
-      "height": 350,
+      "width": 732,
+      "height": 320,
       "title": "Tax Revenue Composition by Revenue Stream",
       "transform": [
           {"filter": "datum.entity_type != 'Total'"},
@@ -40,10 +40,10 @@
       }
     },
     {
-      "width": 700,
+      "width": 732,
       "height": 80,
       "mark": {"type": "line", "color": "#1e40af", "strokeWidth": 2},
-      "title": "Total Tax Revenue",
+      "title": {"text": "Total Tax Revenue"},
       "transform": [
         {"filter": "datum.entity_type == 'Total'"}
       ],
@@ -61,7 +61,7 @@
         "x": {
           "field": "income_year",
           "type": "nominal",
-          "axis": {"title": "", "labelAngle": -45}
+          "axis": {"title": "Financial Year", "labelAngle": -45}
         },
         "y": {
           "field": "amount",
@@ -84,7 +84,8 @@
     },
     "legend": {
       "titleColor": "#374151", "titleFontSize": 11, "titleFontWeight": 600,
-      "labelColor": "#4b5563", "labelFontSize": 11, "symbolType": "square"
+      "labelColor": "#4b5563", "labelFontSize": 11, "symbolType": "square", 
+      "orient": "top", "direction": "horizontal"
     }
   }
 }
