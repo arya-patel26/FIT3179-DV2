@@ -54,7 +54,7 @@
     }
   ],
   "data": {
-    "url": "POA_2021_AUST_GDA2020.json",
+    "url": "POA_2021_AUST_GDA2021.json",
     "format": {
       "type": "topojson",
       "feature": "POA_2021_AUST_GDA2020"
