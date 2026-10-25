@@ -71,7 +71,7 @@
         "color": {
           "field": "top100",
           "type": "quantitative",
-          "title": "Rank (1 = highest average income)",
+          "title": "Rank (1 = lowest average income)",
           "scale": {"domain": [1, 100], "range": ["#c2410c", "#fdba74"]},
           "legend": {"values": [1, 25, 50, 75, 100], "format": "d"}
         },
