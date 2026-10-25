@@ -3,42 +3,10 @@
   "width": 800,
   "height": 650,
   "autosize": {"type": "fit", "contains": "padding"},
-  "params": [
-    {
-      "name": "map_view",
-      "value": [134, -27, 750],
-      "bind": {
-        "input": "select",
-        "options": [
-          [134, -27, 750],
-          [151.21, -33.87, 40000],
-          [144.96, -37.81, 20000],
-          [153.03, -27.47, 1200],
-          [138.60, -34.93, 1800],
-          [115.86, -31.95, 7000],
-          [147.33, -42.88, 5500],
-          [130.84, -12.46, 1200],
-          [149.13, -35.28, 28000]
-        ],
-        "labels": [
-          "Australia",
-          "New South Wales",
-          "Victoria",
-          "Queensland",
-          "South Australia",
-          "Western Australia",
-          "Tasmania",
-          "Northern Territory",
-          "ACT"
-        ],
-        "name": "Map Centre: "
-      }
-    }
-  ],
   "projection": {
     "type": "mercator",
-    "center": {"expr": "[map_view[0], map_view[1]]"},
-    "scale": {"expr": "map_view[2]"}
+    "center": [134, -27],
+    "scale": 750
   },
   "layer": [
     {
@@ -67,12 +35,15 @@
     {
       "data": {
         "url": "chart_data6.csv",
-        "format": {"type": "csv", "parse": {"postcode": "string", "top10": "number", "average_taxable_income": "number"}}
+        "format": {
+          "type": "csv",
+          "parse": {"postcode": "string", "individuals": "number", "avg_taxable_income": "number", "top100": "number"}
+        }
       },
       "transform": [
-        {"filter": "datum.year == '2023–24'"},
+        {"calculate": "datum.postcode == '2052' ? '2033' : datum.postcode", "as": "poa_key"},
         {
-          "lookup": "postcode",
+          "lookup": "poa_key",
           "from": {
             "data": {
               "url": "POA_2021_AUST_GDA2020.json",
@@ -82,34 +53,33 @@
             "fields": ["geometry"]
           }
         },
+        {"filter": "isValid(datum.geometry)"},
         {"calculate": "geoCentroid('projection', datum.geometry)[0]", "as": "cx"},
         {"calculate": "geoCentroid('projection', datum.geometry)[1]", "as": "cy"}
       ],
       "mark": {
         "type": "circle",
-        "size": 200,
+        "size": 90,
         "stroke": "#ffffff",
-        "strokeWidth": 1,
+        "strokeWidth": 0.75,
         "opacity": 1
       },
       "encoding": {
         "x": {"field": "cx", "type": "quantitative", "scale": null, "axis": null},
         "y": {"field": "cy", "type": "quantitative", "scale": null, "axis": null},
-        "order": {"field": "top10", "type": "quantitative", "sort": "descending"},
+        "order": {"field": "top100", "type": "quantitative", "sort": "descending"},
         "color": {
-          "field": "top10",
+          "field": "top100",
           "type": "quantitative",
           "title": "Rank (1 = highest average income)",
-          "scale": {"domain": [1, 10], "range": ["#2563eb", "#93c5fd"]},
-          "legend": {"values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "format": "d"}
+          "scale": {"domain": [1, 100], "range": ["#2563eb", "#93c5fd"]},
+          "legend": {"values": [1, 25, 50, 75, 100], "format": "d"}
         },
         "tooltip": [
-          {"field": "year", "type": "nominal", "title": "Financial Year"},
-          {"field": "top10", "type": "quantitative", "title": "Rank"},
+          {"field": "top100", "type": "quantitative", "title": "Rank"},
           {"field": "postcode", "type": "nominal", "title": "Postcode"},
-          {"field": "state", "type": "nominal", "title": "State"},
-          {"field": "suburb", "type": "nominal", "title": "Suburbs"},
-          {"field": "average_taxable_income", "type": "quantitative", "title": "Average Income", "format": "$,.2f"}
+          {"field": "individuals", "type": "quantitative", "title": "Taxpayers", "format": ","},
+          {"field": "avg_taxable_income", "type": "quantitative", "title": "Average Income", "format": "$,.0f"}
         ]
       }
     },
